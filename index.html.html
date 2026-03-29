@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwickhire | The All-in-One Engine for Digital Dominance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Subtle Fade-In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Custom Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, #8a2be2, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#0a0a0c',
+                        card: '#16161a',
+                        electric: '#8a2be2',
+                        cyan: '#00ffff'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-charcoal text-gray-200 antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 top-0 bg-charcoal/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold tracking-tighter text-white">Kwick<span class="text-cyan">hire</span></div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-sm font-semibold text-gray-300 hover:text-cyan transition-colors">Home</a>
+                <a href="#services" class="text-sm font-semibold text-gray-300 hover:text-cyan transition-colors">Digital Services</a>
+                <a href="#blog" class="text-sm font-semibold text-gray-300 hover:text-cyan transition-colors">Blog</a>
+                <a href="#contact" class="px-5 py-2 rounded-full border border-electric text-sm font-semibold hover:bg-electric hover:text-white transition-all">Let's Talk</a>
+            </div>
+
+            <button class="md:hidden text-white hover:text-cyan transition-colors">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="relative pt-40 pb-24 px-6 max-w-7xl mx-auto text-center fade-in">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-electric/20 blur-[120px] rounded-full -z-10"></div>
+        <h2 class="text-cyan font-semibold tracking-widest uppercase text-sm mb-4">The All-in-One Engine for Your Digital Dominance</h2>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+            We don't just build tools. <br>
+            <span class="text-gradient">We architect your future.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+            Blending intelligent AI bots with premium design to automate business processes and scale SMEs effortlessly.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <button class="px-8 py-4 rounded-full bg-electric text-white font-bold hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] transition-all">Get Started</button>
+            <button class="px-8 py-4 rounded-full border border-cyan text-cyan font-bold hover:bg-cyan/10 transition-all">View Our Work</button>
+        </div>
+    </header>
+
+    <section class="py-24 px-6 max-w-7xl mx-auto fade-in" id="services">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">The Triple Threat Services</h2>
+            <p class="text-gray-400">Everything you need to capture, engage, and convert.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)]">
+            <div class="bg-card border border-gray-800 rounded-3xl p-8 md:col-span-2 group hover:border-cyan transition-colors relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 text-gray-800 opacity-20 group-hover:text-cyan group-hover:opacity-10 transition-all duration-500">
+                    <i data-lucide="layout" width="200" height="200"></i>
+                </div>
+                <div class="w-14 h-14 bg-gray-800/50 rounded-2xl flex items-center justify-center text-cyan mb-6">
+                    <i data-lucide="code-2"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Website Development</h3>
+                <p class="text-gray-400 text-lg">High-performance sites that convert. We build responsive, aesthetic architectures designed for maximum user retention and speed.</p>
+            </div>
+
+            <div class="bg-card border border-gray-800 rounded-3xl p-8 group hover:border-electric transition-colors">
+                <div class="w-14 h-14 bg-gray-800/50 rounded-2xl flex items-center justify-center text-electric mb-6">
+                    <i data-lucide="share-2"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Social Media</h3>
+                <p class="text-gray-400">Data-driven content strategies that turn passive scrollers into active brand advocates.</p>
+            </div>
+
+            <div class="bg-card border border-gray-800 rounded-3xl p-8 md:col-span-3 group hover:border-white transition-colors flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1">
+                    <div class="w-14 h-14 bg-gray-800/50 rounded-2xl flex items-center justify-center text-[#25D366] mb-6">
+                        <i data-lucide="bot"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">WhatsApp Automation</h3>
+                    <p class="text-gray-400 text-lg">24/7 AI-powered customer engagement. Deploy custom AI agents to seamlessly handle appointment scheduling, food ordering, and relentless customer support directly in your client's favorite messaging app.</p>
+                </div>
+                <div class="w-full md:w-1/3 h-40 bg-charcoal rounded-xl border border-gray-800 p-4 flex flex-col gap-3 relative">
+                    <div class="w-3/4 bg-gray-800 rounded-lg p-3 text-sm text-gray-300 rounded-bl-none">How can I help you today?</div>
+                    <div class="w-3/4 bg-electric/20 text-electric border border-electric/30 rounded-lg p-3 text-sm self-end rounded-br-none">I need to book a consultation.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-card border-y border-gray-800 fade-in">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">How We Dominate</h2>
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12 relative">
+                <div class="hidden md:block absolute top-10 left-[10%] w-[80%] h-px bg-gradient-to-r from-electric to-cyan -z-0"></div>
+                
+                <div class="flex-1 flex flex-col items-center text-center relative z-10">
+                    <div class="w-20 h-20 rounded-full bg-charcoal border-2 border-electric flex items-center justify-center text-2xl font-bold text-white mb-6">1</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Consult</h3>
+                    <p class="text-gray-400">We analyze your business architecture and map out the exact digital tools required to optimize your operations.</p>
+                </div>
+                
+                <div class="flex-1 flex flex-col items-center text-center relative z-10">
+                    <div class="w-20 h-20 rounded-full bg-charcoal border-2 border-cyan flex items-center justify-center text-2xl font-bold text-white mb-6">2</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Build</h3>
+                    <p class="text-gray-400">From writing clean SQL to designing front-end interfaces and training your AI agents, we construct the engine.</p>
+                </div>
+
+                <div class="flex-1 flex flex-col items-center text-center relative z-10">
+                    <div class="w-20 h-20 rounded-full bg-charcoal border-2 border-white flex items-center justify-center text-2xl font-bold text-white mb-6">3</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Scale</h3>
+                    <p class="text-gray-400">Launch to the market and watch as automation and data-driven design exponentially increase your bottom line.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-7xl mx-auto fade-in">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Transparent Pricing</h2>
+            <p class="text-gray-400">Invest in your digital infrastructure.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="bg-card border border-gray-800 rounded-3xl p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Launchpad</h3>
+                <div class="text-4xl font-extrabold text-white mb-6">₹15,000<span class="text-sm font-normal text-gray-500">/mo</span></div>
+                <ul class="space-y-4 mb-8 text-gray-400">
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-cyan w-5 h-5"></i> Landing Page Build</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-cyan w-5 h-5"></i> Basic Social Media</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-cyan w-5 h-5"></i> Standard Support</li>
+                </ul>
+                <button class="w-full py-3 rounded-full border border-gray-600 hover:border-white transition-colors text-white font-semibold">Select Launchpad</button>
+            </div>
+
+            <div class="bg-charcoal border-2 border-electric rounded-3xl p-8 transform md:-translate-y-4 relative shadow-[0_0_30px_rgba(138,43,226,0.15)]">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-electric text-white px-4 py-1 rounded-full text-sm font-bold w-max">Most Popular</div>
+                <h3 class="text-xl font-bold text-white mb-2">Orbit</h3>
+                <div class="text-4xl font-extrabold text-white mb-6">₹22,500<span class="text-sm font-normal text-gray-500">/mo</span></div>
+                <ul class="space-y-4 mb-8 text-gray-300">
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-electric w-5 h-5"></i> Multi-page Web Dev</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-electric w-5 h-5"></i> WhatsApp AI Bot (Appointments)</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-electric w-5 h-5"></i> Advanced Social Strategy</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-electric w-5 h-5"></i> Priority Analytics Support</li>
+                </ul>
+                <button class="w-full py-3 rounded-full bg-electric text-white font-bold hover:shadow-[0_0_15px_rgba(138,43,226,0.6)] transition-all">Select Orbit</button>
+            </div>
+
+            <div class="bg-card border border-gray-800 rounded-3xl p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Stratosphere</h3>
+                <div class="text-4xl font-extrabold text-white mb-6">₹35,000<span class="text-sm font-normal text-gray-500">/mo</span></div>
+                <ul class="space-y-4 mb-8 text-gray-400">
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-cyan w-5 h-5"></i> Full Custom Web App</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-cyan w-5 h-5"></i> Complex AI Agent Deployments</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="text-cyan w-5 h-5"></i> Full Ecosystem Integration</li>
+                </ul>
+                <button class="w-full py-3 rounded-full border border-gray-600 hover:border-white transition-colors text-white font-semibold">Let's Talk</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800 py-8 text-center text-gray-500 fade-in">
+        <p>&copy; 2026 Kwickhire. Architecting digital futures.</p>
+    </footer>
+
+    <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 group z-50 flex items-center gap-3">
+        <div class="bg-white text-charcoal px-4 py-2 rounded-2xl shadow-lg text-sm font-semibold opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none">
+            Chat with our AI
+        </div>
+        <div class="bg-[#25D366] w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_14px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform cursor-pointer">
+            <i data-lucide="message-circle" class="text-white w-7 h-7 fill-white"></i>
+        </div>
+    </a>
+
+    <script>
+        lucide.createIcons();
+
+        // Intersection Observer for scroll fade-ins
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach((element) => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
