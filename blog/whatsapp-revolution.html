@@ -40,10 +40,10 @@
             color: var(--text-main) !important;
         }
         
-        /* FIX: Content is now visible by default to prevent "Pitch Dark" mobile error */
+        /* FIX: Content visible by default to prevent mobile "Pitch Dark" bug */
         .fade-in {
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 20px to 0 */
+            opacity: 1;
+            transform: translateY(0);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
@@ -53,7 +53,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* HARD-CODED COLORS FOR MOBILE VISIBILITY */
+        /* ROBUST COLOR RULES FOR CONTENT VISIBILITY */
         .blog-content h1, .blog-content h2 {
             color: var(--text-bright) !important;
             display: block;
@@ -168,7 +168,7 @@
     <header class="pt-8 pb-12 px-6 max-w-4xl mx-auto fade-in text-center">
         <div class="flex items-center justify-center gap-4 mb-6">
             <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full" style="color: #00ffff !important; background-color: rgba(0, 255, 255, 0.1) !important;">WhatsApp Automation</span>
-            <span class="text-sm flex items-center gap-2" style="color: #6b7280 !important;"><i data-lucide="clock" class="w-4 h-4"></i> 5 min read</span>
+            <span class="text-sm flex items-center gap-2" style="color: #6b7280 !important;"><i data-lucide="clock" class="w-4 h-4"></i> 12 min read</span>
         </div>
         <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight" style="color: #ffffff !important;">
             The WhatsApp Revolution: <span class="text-gradient">Automating SME Growth</span>
@@ -179,7 +179,7 @@
                 <i data-lucide="user"></i>
             </div>
             <div class="text-left">
-                <p class="text-sm font-bold" style="color: #ffffff !important;">Mr. Banerjee</p>
+                <p class="text-sm font-bold" style="color: #ffffff !important;">Kwickhire Content Team</p>
                 <p class="text-xs" style="color: #9ca3af !important;">March 2026</p>
             </div>
         </div>
@@ -255,6 +255,86 @@
                 </summary>
                 <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
                     Absolutely. Modern AI agents can check your live calendar, offer alternative times, collect necessary customer data, and even take payments without human intervention.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>3. How does WhatsApp automation reduce no-shows?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    Because WhatsApp has a 98% open rate, reminders are actually seen. AI agents also allow customers to cancel or reschedule instantly in the chat, keeping your calendar filled.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>4. Do I need to be a tech expert to set this up?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    No. Platforms like SleekFlow or partners like Kwickhire handle the technical heavy lifting, allowing you to focus on running your business while the AI handles the chat.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>5. Is it expensive for a local small business?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    The ROI usually outweighs the cost. A 27% increase in revenue and 52% fewer missed appointments typically pays for the automation software in the first month.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>6. Can customers pay directly inside WhatsApp?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    Yes, through WhatsApp Flows and integrated payment links, customers can complete transactions without ever leaving the conversation.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>7. What happens if the AI agent doesn't know the answer?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    A well-designed system uses a "human-in-the-loop" handoff. If the AI is confused, it will instantly alert a human staff member to take over the chat.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>8. Is my customer data safe with WhatsApp AI?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    Using the Official API ensures your data is handled through encrypted, enterprise-grade servers that comply with global privacy standards like GDPR.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>9. How does this help with "Hyper-Local" marketing?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    You can target ads to local users that open directly into a WhatsApp chat, offering them a local-only discount and booking their trial in the same minute.
+                </div>
+            </details>
+
+            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
+                    <span>10. Can I use the same AI agent for Instagram and WhatsApp?</span>
+                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                </summary>
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
+                    Yes. Most modern AI platforms allow you to deploy the same "brain" across WhatsApp, Instagram DM, and Facebook Messenger for a unified customer experience.
                 </div>
             </details>
 
