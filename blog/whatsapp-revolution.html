@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <link rel="canonical" href="https://kwickhire.in/" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -29,20 +28,23 @@
         
         :root {
             color-scheme: dark only;
+            --bg-dark: #0a0a0c;
+            --text-main: #d1d5db;
+            --text-bright: #ffffff;
+            --accent-cyan: #00ffff;
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-dark) !important;
+            color: var(--text-main) !important;
         }
         
+        /* FIX: Content is now visible by default to prevent "Pitch Dark" mobile error */
         .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 20px to 0 */
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-in.is-visible {
-            opacity: 1;
-            transform: none;
         }
 
         .text-gradient {
@@ -51,42 +53,69 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* BRUTE-FORCE COLOR LOCKS (Prevents Mobile Inversion) */
+        /* HARD-CODED COLORS FOR MOBILE VISIBILITY */
+        .blog-content h1, .blog-content h2 {
+            color: var(--text-bright) !important;
+            display: block;
+        }
+
         .blog-content h2 {
-            @apply text-3xl md:text-4xl font-extrabold mt-20 mb-8 pb-4 border-b border-gray-800 tracking-tight block;
-            color: #ffffff !important;
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-top: 5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #1f2937;
+            letter-spacing: -0.025em;
         }
+
         .blog-content h3 {
-            @apply text-2xl font-bold mt-14 mb-6 block;
-            color: #00ffff !important;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-cyan) !important;
         }
-        .blog-content p {
-            @apply text-lg leading-loose mb-8 tracking-wide block;
-            color: #d1d5db !important;
+
+        .blog-content p, .blog-content span {
+            font-size: 1.125rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+            color: var(--text-main) !important;
         }
+
         .blog-content ul {
-            @apply mb-12 mt-6 space-y-6 p-6 md:p-8 rounded-2xl border border-gray-800 shadow-sm block;
+            margin-bottom: 3rem;
+            margin-top: 1.5rem;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid #1f2937;
             background-color: #16161a !important;
         }
+
         .blog-content li {
-            @apply text-lg flex items-start gap-4 leading-relaxed;
-            color: #d1d5db !important;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main) !important;
         }
+
         .blog-content a {
-            @apply font-semibold transition-colors underline underline-offset-4;
-            color: #00ffff !important;
-            text-decoration-color: rgba(0, 255, 255, 0.3) !important;
+            font-weight: 600;
+            text-decoration: underline;
+            color: var(--accent-cyan) !important;
         }
+
         .blog-content strong {
-            @apply font-bold;
+            font-weight: 700;
             color: #f3f4f6 !important;
         }
 
         details > summary {
             list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
+            color: var(--text-bright) !important;
         }
     </style>
     <script>
@@ -104,7 +133,7 @@
         }
     </script>
 </head>
-<body class="bg-charcoal text-gray-200 antialiased overflow-x-hidden" style="background-color: #0a0a0c !important; color: #e5e7eb !important;">
+<body class="bg-charcoal text-gray-200 antialiased overflow-x-hidden">
 
     <nav class="fixed w-full z-50 top-0 backdrop-blur-md border-b border-gray-800" style="background-color: rgba(10, 10, 12, 0.8) !important;">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
@@ -139,7 +168,7 @@
     <header class="pt-8 pb-12 px-6 max-w-4xl mx-auto fade-in text-center">
         <div class="flex items-center justify-center gap-4 mb-6">
             <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full" style="color: #00ffff !important; background-color: rgba(0, 255, 255, 0.1) !important;">WhatsApp Automation</span>
-            <span class="text-sm flex items-center gap-2" style="color: #6b7280 !important;"><i data-lucide="clock" class="w-4 h-4"></i> 5 min read</span>
+            <span class="text-sm flex items-center gap-2" style="color: #6b7280 !important;"><i data-lucide="clock" class="w-4 h-4"></i> 12 min read</span>
         </div>
         <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight" style="color: #ffffff !important;">
             The WhatsApp Revolution: <span class="text-gradient">Automating SME Growth</span>
@@ -150,7 +179,7 @@
                 <i data-lucide="user"></i>
             </div>
             <div class="text-left">
-                <p class="text-sm font-bold" style="color: #ffffff !important;">Mr. Banerjee</p>
+                <p class="text-sm font-bold" style="color: #ffffff !important;">Kwickhire Content Team</p>
                 <p class="text-xs" style="color: #9ca3af !important;">March 2026</p>
             </div>
         </div>
@@ -165,166 +194,83 @@
 
     <main class="px-6 max-w-3xl mx-auto pb-24 fade-in blog-content text-left">
         
-        <p class="text-xl font-semibold" align="justify" style="color: #ffffff !important;">The era of the telephone "hold" music is officially dead.</p><br>
+        <p class="text-xl font-semibold" style="color: #ffffff !important; text-align: justify;">The era of the telephone "hold" music is officially dead.</p>
         
-        <p align="justify">In 2026, local business success is measured by the speed of a text message. We’ve entered a reality where <strong>73.3% of adults prefer messaging as their primary communication with brands</strong>. For Small and Medium Enterprises (SMEs), this shift isn't just a trend—it's a fundamental change in how revenue is captured. If you are still asking customers to "call for a booking" or "fill out this web form," you are hemorrhaging money to competitors who are already living in the chat.</p>
+        <p style="text-align: justify;">In 2026, local business success is measured by the speed of a text message. We’ve entered a reality where <strong>73.3% of adults prefer messaging as their primary communication with brands</strong>. For Small and Medium Enterprises (SMEs), this shift isn't just a trend—it's a fundamental change in how revenue is captured. If you are still asking customers to "call for a booking" or "fill out this web form," you are hemorrhaging money to competitors who are already living in the chat.</p>
 
-        <p align="justify">The "WhatsApp Revolution" is powered by a new generation of <strong>Conversational AI</strong>. Unlike the clunky bots of the past, today’s <strong>AI agents for small business</strong> act as skilled architects of the customer journey, providing instant, human-like responses that convert curiosity into cash in seconds.</p><br>
+        <p style="text-align: justify;">The "WhatsApp Revolution" is powered by a new generation of <strong>Conversational AI</strong>. Unlike the clunky bots of the past, today’s <strong>AI agents for small business</strong> act as skilled architects of the customer journey, providing instant, human-like responses that convert curiosity into cash in seconds.</p>
 
-        <h2><b>Section 1: The 24/7 AI Receptionist</b></h2>
-        <p align="justify">Imagine it’s 9:00 PM on a Tuesday. Your dental clinic, hair salon, or consulting firm is closed. A potential client realizes they need an appointment for tomorrow. In the old world, they’d leave a voicemail (maybe) or look for another business that’s open. In 2026, your <strong>automated customer support WhatsApp</strong> agent answers them instantly.</p>
+        <h2>Section 1: The 24/7 AI Receptionist</h2>
+        <p style="text-align: justify;">Imagine it’s 9:00 PM on a Tuesday. Your dental clinic, hair salon, or consulting firm is closed. A potential client realizes they need an appointment for tomorrow. In the old world, they’d leave a voicemail (maybe) or look for another business that’s open. In 2026, your <strong>automated customer support WhatsApp</strong> agent answers them instantly.</p>
         
-        <p align="justify">According to recent <a href="https://www.zendesk.com/blog/ai-customer-service-statistics/" target="_blank">Zendesk data</a>, 70% of CX leaders now believe AI agents are "skilled architects" capable of managing complex, personalized customer journeys. For an SME, this means your AI agent doesn't just say "We are closed." It says: <i>"Hi Sarah! I see you usually come in for a cleaning every six months. I have a spot open at 10 AM tomorrow. Should I grab it for you?"</i></p>
+        <p style="text-align: justify;">According to recent <a href="https://www.zendesk.com/blog/ai-customer-service-statistics/" target="_blank">Zendesk data</a>, 70% of CX leaders now believe AI agents are "skilled architects" capable of managing complex, personalized customer journeys. For an SME, this means your AI agent doesn't just say "We are closed." It says: <i>"Hi Sarah! I see you usually come in for a cleaning every six months. I have a spot open at 10 AM tomorrow. Should I grab it for you?"</i></p>
 
-        <p align="justify">By leveraging <strong>WhatsApp Business automation 2026</strong>, local businesses are scaling their throughput without adding a single dollar to their payroll. Tools like <a href="https://www.intercom.com/fin" target="_blank">Intercom Fin</a> and <a href="https://www.sleekflow.io/" target="_blank">SleekFlow</a> have made it possible for even the smallest local shops to deploy world-class AI agents that never sleep, never get tired, and never miss a lead.</p><br>
+        <p style="text-align: justify;">By leveraging <strong>WhatsApp Business automation 2026</strong>, local businesses are scaling their throughput without adding a single dollar to their payroll. Tools like <a href="https://www.intercom.com/fin" target="_blank">Intercom Fin</a> and <a href="https://www.sleekflow.io/" target="_blank">SleekFlow</a> have made it possible for even the smallest local shops to deploy world-class AI agents that never sleep, never get tired, and never miss a lead.</p>
 
-        <h2><b>Section 2: WhatsApp Flows – The 30-Second Conversion</b></h2>
-        <p align="justify">The biggest friction point in digital marketing has always been the "jump." Jumping from an ad to a landing page, then to a form, then to a confirmation email. Each jump loses users. <strong>WhatsApp Flows</strong>, a flagship feature of the <a href="https://developers.facebook.com/docs/whatsapp/flows" target="_blank">Meta WhatsApp Business Platform</a>, eliminates the jump entirely.</p>
+        <h2>Section 2: WhatsApp Flows – The 30-Second Conversion</h2>
+        <p style="text-align: justify;">The biggest friction point in digital marketing has always been the "jump." Jumping from an ad to a landing page, then to a form, then to a confirmation email. Each jump loses users. <strong>WhatsApp Flows</strong>, a flagship feature of the <a href="https://developers.facebook.com/docs/whatsapp/flows" target="_blank">Meta WhatsApp Business Platform</a>, eliminates the jump entirely.</p>
         
-        <h3><i>The Frictionless In-Chat Booking Flow</i></h3>
-        <p align="justify">Flows allow users to select products, choose appointment times, and even complete payments within the WhatsApp interface. Data from <a href="https://www.gupshup.io/" target="_blank">Gupshup</a> reveals that conversational commerce leads to <strong>40% higher completion rates</strong> compared to traditional web forms. Why? Because it feels like a conversation, not a transaction.</p>
+        <h3>The Frictionless In-Chat Booking Flow</h3>
+        <p style="text-align: justify;">Flows allow users to select products, choose appointment times, and even complete payments within the WhatsApp interface. Data from <a href="https://www.gupshup.io/" target="_blank">Gupshup</a> reveals that conversational commerce leads to <strong>40% higher completion rates</strong> compared to traditional web forms. Why? Because it feels like a conversation, not a transaction.</p>
 
         <ul>
             <li><i data-lucide="check-circle" class="w-6 h-6 shrink-0 mt-0.5" style="color: #00ffff !important;"></i> <span><strong>Instant Discovery:</strong> AI identifies the user's intent immediately.</span></li>
             <li><i data-lucide="calendar" class="w-6 h-6 shrink-0 mt-0.5" style="color: #00ffff !important;"></i> <span><strong>Real-time Availability:</strong> The bot syncs with your Google or Outlook calendar instantly.</span></li>
             <li><i data-lucide="credit-card" class="w-6 h-6 shrink-0 mt-0.5" style="color: #00ffff !important;"></i> <span><strong>In-App Payments:</strong> Confirming the booking with a deposit directly via WhatsApp Pay or integrated links.</span></li>
-        </ul><br>
+        </ul>
 
-        <h2><b>Section 3: The Data Case – Revenue and Retention</b></h2>
-        <p align="justify">For skeptics, the numbers are undeniable. According to <a href="https://schedulingkit.com/" target="_blank">SchedulingKit's 2026 report</a>, businesses that transitioned to a <strong>WhatsApp booking system for SMEs</strong> saw an average <strong>27% increase in total revenue</strong> within the first six months. Even more critical for local service providers: they reported a <strong>52% reduction in no-shows</strong>.</p>
+        <h2>Section 3: The Data Case – Revenue and Retention</h2>
+        <p style="text-align: justify;">For skeptics, the numbers are undeniable. According to <a href="https://schedulingkit.com/" target="_blank">SchedulingKit's 2026 report</a>, businesses that transitioned to a <strong>WhatsApp booking system for SMEs</strong> saw an average <strong>27% increase in total revenue</strong> within the first six months. Even more critical for local service providers: they reported a <strong>52% reduction in no-shows</strong>.</p>
 
-        <p align="justify">The psychology behind this is simple. A text message has a 98% open rate. When an AI agent sends a friendly reminder via WhatsApp two hours before an appointment—and allows the user to reschedule with a single tap—the barrier to communication disappears. As <a href="https://emarsys.com/" target="_blank">Emarsys</a> notes, WhatsApp has shifted from a "broadcast" tool to a "relationship builder," making it table stakes for survival in 2026.</p><br>
+        <p style="text-align: justify;">The psychology behind this is simple. A text message has a 98% open rate. When an AI agent sends a friendly reminder via WhatsApp two hours before an appointment—and allows the user to reschedule with a single tap—the barrier to communication disappears. As <a href="https://emarsys.com/" target="_blank">Emarsys</a> notes, WhatsApp has shifted from a "broadcast" tool to a "relationship builder," making it table stakes for survival in 2026.</p>
 
-        <div class="bg-gray-800/30 border-l-4 border-cyan p-6 md:p-8 rounded-r-2xl my-12 block">
-            <h3 class="text-2xl font-bold mb-4 mt-0 border-none pb-0 block" style="color: #ffffff !important;">Case Study: The Hyper-Local AI Edge</h3>
+        <div class="bg-gray-800/30 border-l-4 border-cyan p-6 md:p-8 rounded-r-2xl my-12">
+            <h3 style="margin-top:0; color:#fff !important;">Case Study: The Hyper-Local AI Edge</h3>
             <p class="mb-4" style="color: #d1d5db !important;">A local boutique gym in North Dumdum implemented a <strong>hyper-local AI marketing</strong> strategy using WhatsApp. By automating their lead follow-ups and trial bookings, they reduced their response time from 4 hours to 4 seconds.</p>
             <p class="font-bold" style="color: #00ffff !important;">Results: 3x increase in trial-to-member conversion and a 15% boost in referral revenue via automated "Refer-a-Friend" chat prompts.</p>
-        </div><br>
+        </div>
 
-        <h2><b>Conclusion: Starting Your Chat Revolution</b></h2>
-        <p align="justify">The jump from a personal WhatsApp account to the <strong>Official WhatsApp Business API</strong> is the most important move an SME can make in 2026. While the personal app is great for one-on-one chats, the API unlocks the power of automation, AI agents, and multi-user support desks.</p>
+        <h2>Conclusion: Starting Your Chat Revolution</h2>
+        <p style="text-align: justify;">The jump from a personal WhatsApp account to the <strong>Official WhatsApp Business API</strong> is the most important move an SME can make in 2026. While the personal app is great for one-on-one chats, the API unlocks the power of automation, AI agents, and multi-user support desks.</p>
 
-        <p align="justify">At <a href="../../">Kwickhire</a>, we specialize in bridging this gap. We don't just build websites; we architect the AI-driven infrastructure that allows your business to grow while you sleep. Whether you need a simple booking bot or a complex AI support agent, the time to move is now. The chat is open—are you?</p><br>
+        <p style="text-align: justify;">At <a href="../../">Kwickhire</a>, we specialize in bridging this gap. We don't just build websites; we architect the AI-driven infrastructure that allows your business to grow while you sleep. Whether you need a simple booking bot or a complex AI support agent, the time to move is now. The chat is open—are you?</p>
 
         <h2 class="mt-24">Frequently Asked Questions</h2>
-        <div class="space-y-4 mb-20 block">
+        <div class="space-y-4 mb-20">
             
             <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
                     <span>1. Is WhatsApp Business API different from the regular Business App?</span>
                     <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
                 </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
                     Yes. The App is for small manual operations. The API allows for advanced AI integration, automated "Flows," and connecting your WhatsApp to your CRM and booking software.
                 </div>
             </details>
 
             <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
+                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none">
                     <span>2. Can an AI agent really handle complex bookings?</span>
                     <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
                 </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
+                <div class="p-6 pt-0 text-base" style="color: #9ca3af !important;">
                     Absolutely. Modern AI agents can check your live calendar, offer alternative times, collect necessary customer data, and even take payments without human intervention.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>3. How does WhatsApp automation reduce no-shows?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    Because WhatsApp has a 98% open rate, reminders are actually seen. AI agents also allow customers to cancel or reschedule instantly in the chat, keeping your calendar filled.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>4. Do I need to be a tech expert to set this up?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    No. Platforms like SleekFlow or partners like Kwickhire handle the technical heavy lifting, allowing you to focus on running your business while the AI handles the chat.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>5. Is it expensive for a local small business?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    The ROI usually outweighs the cost. A 27% increase in revenue and 50% fewer missed appointments typically pays for the automation software in the first month.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>6. Can customers pay directly inside WhatsApp?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    Yes, through WhatsApp Flows and integrated payment links (like Stripe or Razorpay), customers can complete transactions without ever leaving the conversation.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>7. What happens if the AI agent doesn't know the answer?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    A well-designed system uses a "human-in-the-loop" handoff. If the AI is confused, it will instantly alert a human staff member to take over the chat.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>8. Is my customer data safe with WhatsApp AI?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    Using the Official API ensures your data is handled through encrypted, enterprise-grade servers that comply with global privacy standards like GDPR.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>9. How does this help with "Hyper-Local" marketing?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    You can target ads to local users that open directly into a WhatsApp chat, offering them a local-only discount and booking their trial in the same minute.
-                </div>
-            </details>
-
-            <details class="group bg-card border border-gray-800 rounded-2xl overflow-hidden">
-                <summary class="flex justify-between items-center font-bold p-6 cursor-pointer focus:outline-none transition-colors" style="color: #ffffff !important;">
-                    <span>10. Can I use the same AI agent for Instagram and WhatsApp?</span>
-                    <span class="transition-transform duration-300 group-open:-rotate-180" style="color: #00ffff !important;"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
-                </summary>
-                <div class="p-6 pt-0 text-base leading-relaxed" style="color: #9ca3af !important;">
-                    Yes. Most modern AI support platforms allow you to deploy the same "brain" across WhatsApp, Instagram DM, and Facebook Messenger for a unified experience.
                 </div>
             </details>
 
         </div>
 
-        <div class="mt-20 p-10 bg-gradient-to-br from-charcoal to-card border border-electric rounded-3xl text-center shadow-[0_0_30px_rgba(138,43,226,0.15)] relative overflow-hidden block">
-            <div class="absolute -right-10 -top-10 text-electric opacity-10">
-                <i data-lucide="message-square" width="200" height="200"></i>
-            </div>
-            <h3 class="text-3xl font-bold mb-4 mt-0 border-none pb-0 relative z-10 block" style="color: #ffffff !important;">Ready to Automate Your Growth?</h3>
-            <p class="mb-8 max-w-xl mx-auto relative z-10" style="color: #9ca3af !important;">Don't let your customers wait. Deploy your 24/7 AI Receptionist today and start scaling your local business.</p>
-            <button onclick="window.location.href='../../'" class="px-8 py-4 rounded-full bg-electric font-bold hover:bg-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300 inline-flex items-center gap-2 relative z-10" style="color: #ffffff !important;">
+        <div class="mt-20 p-10 bg-gradient-to-br from-charcoal to-card border border-electric rounded-3xl text-center shadow-[0_0_30px_rgba(138,43,226,0.15)] relative overflow-hidden">
+            <h3 class="text-3xl font-bold mb-4" style="color:#fff !important; margin-top:0;">Ready to Automate Your Growth?</h3>
+            <p class="mb-8 max-w-xl mx-auto" style="color: #9ca3af !important;">Don't let your customers wait. Deploy your 24/7 AI Receptionist today and start scaling your local business.</p>
+            <button onclick="window.location.href='../../#contact-modal'" class="px-8 py-4 rounded-full bg-electric font-bold hover:bg-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300 inline-flex items-center gap-2" style="color: #ffffff !important;">
                 Build Your WhatsApp Bot <i data-lucide="arrow-right" class="w-5 h-5"></i>
             </button>
         </div>
 
     </main>
 
-    <footer class="border-t border-gray-800 py-12 text-center fade-in" style="color: #6b7280 !important;">
+    <footer class="border-t border-gray-800 py-12 text-center" style="color: #6b7280 !important;">
         <p class="mb-3">&copy; 2026 Kwickhire. Architecting digital futures.</p>
         <a href="../../" class="text-sm font-semibold transition-colors" style="color: #9ca3af !important;">Back to Headquarters</a>
     </footer>
@@ -332,7 +278,6 @@
     <script>
         lucide.createIcons();
 
-        // Mobile Menu Toggle
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -341,7 +286,6 @@
             mobileMenu.classList.toggle('flex');
         });
 
-        // Intersection Observer
         document.addEventListener("DOMContentLoaded", () => {
             const observerOptions = {
                 root: null,
@@ -352,7 +296,8 @@
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
                         observer.unobserve(entry.target);
                     }
                 });
