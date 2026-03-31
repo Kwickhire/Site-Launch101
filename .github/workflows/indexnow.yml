@@ -1,0 +1,17 @@
+name: IndexNow Submission
+
+on:
+  push:
+    branches:
+      - main  # Make sure this matches your branch name
+  workflow_dispatch: 
+
+jobs:
+  submit-to-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit Sitemap to IndexNow
+        uses: bojieyang/indexnow-action@v2
+        with:
+          sitemap-location: 'https://kwickhire.in/sitemap.xml'
+          key: ${{ secrets.INDEXNOW_KEY }}
