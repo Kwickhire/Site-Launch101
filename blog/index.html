@@ -60,9 +60,22 @@
             <div class="hidden md:flex items-center gap-8">
                 <a href="../" class="text-sm font-semibold text-gray-300 hover:text-cyan transition-colors">Home</a>
                 <a href="../#services" class="text-sm font-semibold text-gray-300 hover:text-cyan transition-colors">Digital Services</a>
+                <a href="../#work" class="text-sm font-semibold text-gray-300 hover:text-cyan transition-colors">Our Work</a>
                 <a href="#" class="text-sm font-semibold text-cyan transition-colors border-b-2 border-cyan">Blog</a>
                 <button onclick="window.location.href='../index.html'" class="px-5 py-2 rounded-full border border-electric text-sm font-semibold hover:bg-electric hover:text-white transition-all">Let's Talk</button>
             </div>
+
+            <button id="menu-btn" class="md:hidden focus:outline-none transition-colors" style="color: #ffffff !important;">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden border-b border-gray-800 px-6 py-6 flex-col gap-6 shadow-xl" style="background-color: #16161a !important;">
+            <a href="../" class="text-sm font-semibold transition-colors" style="color: #d1d5db !important;">Home</a>
+            <a href="../#services" class="text-sm font-semibold transition-colors" style="color: #d1d5db !important;">Digital Services</a>
+            <a href="../#work" class="text-sm font-semibold transition-colors" style="color: #d1d5db !important;">Our Work</a>
+            <a href="#" class="text-sm font-semibold transition-colors" style="color: #d1d5db !important;">Blog</a>
+            <button onclick="window.location.href='../index.html'" class="px-5 py-3 rounded-full border text-sm font-semibold transition-all w-max" style="border-color: #8a2be2 !important; color: #ffffff !important;">Let's Talk</button>
         </div>
     </nav>
 
@@ -170,6 +183,14 @@
 
     <script>
         lucide.createIcons();
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
 
         document.addEventListener("DOMContentLoaded", () => {
             const observerOptions = { threshold: 0.15 };
