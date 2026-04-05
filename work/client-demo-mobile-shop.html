@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ON Communications | Premium Mobile & Accessories Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            bg: '#FCFBF8', // Off-white/Beige
+                            card: '#FFFFFF',
+                            text: '#292524', // Stone 800
+                            muted: '#78716C', // Stone 500
+                            accent: '#D6D3D1', // Stone 300
+                            primary: '#1C1917' // Stone 900
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FCFBF8; color: #292524; font-family: 'Inter', sans-serif; }
+        .view-section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Fixed Slider styling - Faster Transition */
+        .slide { opacity: 0; transition: opacity 0.5s ease-in-out; position: absolute; inset: 0; width: 100%; height: 100%; }
+        .slide.active { opacity: 1; z-index: 10; }
+
+        /* Modal styling */
+        #product-modal { display: none; }
+        #product-modal.active { display: flex; animation: fadeIn 0.3s; }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen relative">
+
+    <header class="sticky top-0 z-50 bg-brand-bg/90 backdrop-blur-md border-b border-brand-accent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
+            <div class="flex items-center cursor-pointer" onclick="navigate('home')">
+                <span class="text-2xl font-bold tracking-tight text-brand-primary">ON <span class="font-light">Communications</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <button onclick="navigate('home')" class="text-brand-text hover:text-brand-muted transition font-medium">Home</button>
+                <button onclick="navigate('mobiles')" class="text-brand-text hover:text-brand-muted transition font-medium">Mobiles</button>
+                <button onclick="navigate('accessories')" class="text-brand-text hover:text-brand-muted transition font-medium">Accessories</button>
+                <button onclick="navigate('services')" class="text-brand-text hover:text-brand-muted transition font-medium">Mobile Service</button>
+            </nav>
+            
+            <button class="md:hidden text-brand-text p-2 focus:outline-none" onclick="toggleMobileMenu()">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-brand-bg/95 backdrop-blur-md border-b border-brand-accent shadow-lg z-40">
+            <div class="flex flex-col p-6 space-y-6 text-center">
+                <button onclick="navigate('home')" class="text-brand-text font-bold text-lg">Home</button>
+                <button onclick="navigate('mobiles')" class="text-brand-text font-bold text-lg">Mobiles</button>
+                <button onclick="navigate('accessories')" class="text-brand-text font-bold text-lg">Accessories</button>
+                <button onclick="navigate('services')" class="text-brand-text font-bold text-lg">Mobile Service</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        
+        <section id="home" class="view-section active space-y-20">
+            <div class="relative w-full h-[50vh] md:h-[70vh] bg-brand-card rounded-2xl overflow-hidden shadow-lg border border-brand-accent/50">
+                <div id="slider-container" class="relative w-full h-full">
+                    </div>
+            </div>
+
+            <div>
+                <h2 class="text-3xl font-bold mb-8 text-center text-brand-primary">Exclusive In-Store Offers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-brand-card p-8 rounded-xl shadow-sm border border-brand-accent/50 text-center">
+                        <div class="text-4xl mb-4">💳</div>
+                        <h3 class="text-xl font-semibold mb-2">Bank Cashback</h3>
+                        <p class="text-brand-muted">Get up to 10% instant cashback on HDFC and ICICI credit cards.</p>
+                    </div>
+                    <div class="bg-brand-card p-8 rounded-xl shadow-sm border border-brand-accent/50 text-center">
+                        <div class="text-4xl mb-4">🔄</div>
+                        <h3 class="text-xl font-semibold mb-2">Smart Exchange</h3>
+                        <p class="text-brand-muted">Upgrade your old phone and get an extra ₹5,000 exchange bonus.</p>
+                    </div>
+                    <div class="bg-brand-card p-8 rounded-xl shadow-sm border border-brand-accent/50 text-center">
+                        <div class="text-4xl mb-4">🎁</div>
+                        <h3 class="text-xl font-semibold mb-2">Free Accessories</h3>
+                        <p class="text-brand-muted">Free premium tempered glass with every flagship smartphone purchase.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-brand-primary text-brand-bg py-16 px-4 md:px-12 rounded-2xl shadow-xl">
+                <h2 class="text-3xl font-bold mb-12 text-center">What Our Customers Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                    <div class="flex gap-6 items-start bg-stone-800 p-6 rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=facearea&facepad=2" alt="Rahul S." class="w-16 h-16 rounded-full border-2 border-brand-bg object-cover flex-shrink-0">
+                        <blockquote>
+                            <p class="text-lg italic mb-4">"The best mobile buying experience I've ever had. The staff helped me transfer all my data seamlessly."</p>
+                            <footer class="font-medium text-brand-accent">— Rahul S., Metropolis</footer>
+                        </blockquote>
+                    </div>
+                    <div class="flex gap-6 items-start bg-stone-800 p-6 rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=facearea&facepad=2" alt="Priya M." class="w-16 h-16 rounded-full border-2 border-brand-bg object-cover flex-shrink-0">
+                        <blockquote>
+                            <p class="text-lg italic mb-4">"Amazing collection of premium accessories. Got an original Apple leather case at a great store discount."</p>
+                            <footer class="font-medium text-brand-accent">— Priya M., Metropolis</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-3xl font-bold mb-8 text-center text-brand-primary">Upcoming Launches</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="bg-brand-card p-4 rounded-xl text-center border border-brand-accent/50 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1678911820864-a2c96e8865c4?q=80&w=300&auto=format&fit=crop" alt="Samsung S25" class="h-40 w-full object-cover rounded-lg mb-4">
+                        <h4 class="font-semibold">Samsung S25 Ultra</h4>
+                        <p class="text-sm text-brand-muted">Expected: Oct 2024</p>
+                    </div>
+                    <div class="bg-brand-card p-4 rounded-xl text-center border border-brand-accent/50 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1664478546384-d2b0abb68432?q=80&w=300&auto=format&fit=crop" alt="iPhone 16" class="h-40 w-full object-cover rounded-lg mb-4">
+                        <h4 class="font-semibold">iPhone 16 Pro</h4>
+                        <p class="text-sm text-brand-muted">Expected: Sep 2024</p>
+                    </div>
+                    <div class="bg-brand-card p-4 rounded-xl text-center border border-brand-accent/50 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1711128330756-3c72d56a2f3e?q=80&w=300&auto=format&fit=crop" alt="OnePlus 13" class="h-40 w-full object-cover rounded-lg mb-4">
+                        <h4 class="font-semibold">OnePlus 13</h4>
+                        <p class="text-sm text-brand-muted">Expected: Jan 2025</p>
+                    </div>
+                    <div class="bg-brand-card p-4 rounded-xl text-center border border-brand-accent/50 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?q=80&w=300&auto=format&fit=crop" alt="Vivo X110" class="h-40 w-full object-cover rounded-lg mb-4">
+                        <h4 class="font-semibold">Vivo X110 Pro</h4>
+                        <p class="text-sm text-brand-muted">Expected: Nov 2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mobiles" class="view-section">
+            <h1 class="text-4xl font-bold mb-8 text-brand-primary">Smartphones</h1>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-brand-card p-4 rounded-xl shadow-sm border border-brand-accent/50 gap-4">
+                <div class="flex items-center space-x-4 w-full md:w-auto">
+                    <label class="font-medium text-brand-text">Filter Brand:</label>
+                    <select id="mobile-filter" onchange="renderMobiles()" class="bg-brand-bg border border-brand-accent rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-brand-primary w-full md:w-auto">
+                        <option value="All">All Brands</option>
+                        <option value="Apple">Apple</option>
+                        <option value="Samsung">Samsung</option>
+                        <option value="Google">Google</option>
+                        <option value="Motorola">Motorola</option>
+                        <option value="Xiaomi">Xiaomi</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-4 w-full md:w-auto">
+                    <label class="font-medium text-brand-text">Sort By:</label>
+                    <select id="mobile-sort" onchange="renderMobiles()" class="bg-brand-bg border border-brand-accent rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-brand-primary w-full md:w-auto">
+                        <option value="high">Price: High to Low</option>
+                        <option value="low">Price: Low to High</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="mobiles-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+        </section>
+
+        <section id="accessories" class="view-section">
+            <h1 class="text-4xl font-bold mb-8 text-brand-primary">Premium Accessories</h1>
+            <div id="accessories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+        </section>
+
+        <section id="services" class="view-section max-w-2xl mx-auto">
+            <h1 class="text-4xl font-bold mb-4 text-center text-brand-primary">Mobile Repair & Service</h1>
+            <p class="text-center text-brand-muted mb-8">Book a diagnostic appointment. Our certified technicians will take a look.</p>
+            
+            <form onsubmit="handleServiceSubmit(event)" class="bg-brand-card p-8 rounded-2xl shadow-sm border border-brand-accent/50 space-y-6">
+                <div>
+                    <label class="block font-medium mb-2">Device Brand</label>
+                    <input type="text" id="service-brand" required placeholder="e.g., Apple, Samsung" class="w-full bg-brand-bg border border-brand-accent rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                </div>
+                <div>
+                    <label class="block font-medium mb-2">Product Type</label>
+                    <select id="service-type" class="w-full bg-brand-bg border border-brand-accent rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                        <option>Smartphone</option>
+                        <option>Tablet</option>
+                        <option>Headphones / Earbuds</option>
+                        <option>Smartwatch</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-medium mb-2">Describe the Issue</label>
+                    <textarea id="service-issue" required rows="4" placeholder="Screen broken, battery draining fast, etc." class="w-full bg-brand-bg border border-brand-accent rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brand-primary text-brand-bg py-4 rounded-lg font-bold hover:bg-black transition">Submit Repair Request</button>
+            </form>
+        </section>
+
+        <section id="coming-soon" class="view-section">
+            <div class="flex flex-col items-center justify-center h-[50vh] text-center bg-brand-card rounded-2xl shadow-sm border border-brand-accent/50 p-8">
+                <div class="text-6xl mb-6">🚀</div>
+                <h1 class="text-5xl md:text-6xl font-bold text-brand-primary mb-6">Coming Soon!!</h1>
+                <p class="text-brand-muted text-xl max-w-md mx-auto">We are actively working on bringing this page to life. Stay tuned for updates!</p>
+                <button onclick="navigate('home')" class="mt-8 bg-brand-primary text-brand-bg px-8 py-3 rounded-lg font-bold hover:bg-black transition">Return to Home</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="product-modal" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-brand-card w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-brand-bg/80 backdrop-blur-sm rounded-full p-2 text-brand-text hover:bg-brand-accent transition z-10">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-content">
+                </div>
+        </div>
+    </div>
+
+    <footer class="bg-brand-card border-t border-brand-accent/50 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <span class="text-2xl font-bold tracking-tight text-brand-primary mb-4 block">ON <span class="font-light">Communications</span></span>
+                    <p class="text-brand-muted">Your premium offline destination for the latest smartphones and high-quality accessories. Visit us today for exclusive in-store deals.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-brand-primary">Visit Us</h4>
+                    <p class="text-brand-muted">123 Tech Avenue, Sector 4<br>Metropolis, NY 10001<br><br><strong>Open Daily:</strong><br>10:00 AM - 9:00 PM</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-brand-primary">Contact</h4>
+                    <p class="text-brand-muted mb-6">Phone: +1 (555) 123-4567<br>Email: hello@oncommunications.com</p>
+                    <div class="flex space-x-5 text-xl items-center">
+                        <a href="https://facebook.com" target="_blank" class="text-brand-text hover:text-blue-600 transition" aria-label="Facebook">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="text-brand-text hover:text-pink-600 transition" aria-label="Instagram">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="text-brand-text hover:text-sky-500 transition" aria-label="Twitter">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-brand-primary">Company</h4>
+                    <ul class="space-y-2 text-brand-muted">
+                        <li><a href="#" onclick="navigate('coming-soon'); return false;" class="hover:text-brand-primary transition">About Us</a></li>
+                        <li><a href="#" onclick="navigate('coming-soon'); return false;" class="hover:text-brand-primary transition">Privacy Policy</a></li>
+                        <li><a href="#" onclick="navigate('coming-soon'); return false;" class="hover:text-brand-primary transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-brand-muted mt-12 pt-8 border-t border-brand-accent/30">
+                &copy; 2024 ON Communications. All rights reserved. Your Premium Mobile Partner.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // WhatsApp Configuration
+        const CLIENT_WHATSAPP_NUMBER = "1234567890"; // Replace with actual number
+
+        // Mobile Menu Logic
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Router Logic
+        function navigate(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            
+            // Close mobile menu if open
+            const menu = document.getElementById('mobile-menu');
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        // --- CLIENT CONFIGURATION START ---
+        
+        // 1. CAROUSEL DATA (Top of Landing Page)
+        const slidesData = [
+            { brand: 'Apple', img: 'https://images.unsplash.com/photo-1696446701796-da61225697cc?q=80&w=1600', text: 'Experience the new iPhone 15 Pro' },
+            { brand: 'Samsung', img: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?q=80&w=1600', text: 'Galaxy S24 Ultra - Now In Stock' },
+            { brand: 'Google', img: 'https://images.unsplash.com/photo-1612470762953-2947d10c0e5b?q=80&w=1600', text: 'Pixel 8 Pro - Designed by Google' },
+            { brand: 'Motorola', img: 'https://images.unsplash.com/photo-1614707328841-3b7c42700e3f?q=80&w=1600', text: 'Razr 40 Ultra - The Modern Icon' },
+            { brand: 'Xiaomi', img: 'https://images.unsplash.com/photo-1711202029562-b1b7076a591e?q=80&w=1600', text: 'Xiaomi 14 Ultra - Pro Grade Camera' }
+        ];
+
+        // 2. SMARTPHONES DATA (Mobiles Tab)
+        const mobiles = [
+            {
+                brand: "Apple",
+                name: "iPhone 15 Pro Max",
+                price: 159900,
+                image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=800",
+                specs: { Display: "6.7-inch XDR OLED", Processor: "A17 Pro Chip", Battery: "4441 mAh", Camera: "48MP Triple Camera" }
+            },
+            {
+                brand: "Samsung",
+                name: "Galaxy S24 Ultra",
+                price: 129999,
+                image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=800",
+                specs: { Display: "6.8-inch QHD+", Processor: "Snapdragon 8 Gen 3", Battery: "5000 mAh", Camera: "200MP Main" }
+            },
+            {
+                brand: "Google",
+                name: "Pixel 8 Pro",
+                price: 106999,
+                image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=800",
+                specs: { Display: "6.7-inch Super Actua", Processor: "Google Tensor G3", Battery: "5050 mAh", Camera: "50MP Triple" }
+            }
+        ];
+
+        // 3. ACCESSORIES DATA (Accessories Tab)
+        const accessories = [
+            {
+                type: "Audio",
+                name: "Apple AirPods Pro (2nd Gen)",
+                price: 24900,
+                image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?q=80&w=800",
+                specs: { Warranty: "1 Year", Compatibility: "iOS / Android", Features: "Noise Cancellation" }
+            },
+            {
+                type: "Power",
+                name: "ON 65W Fast Charger",
+                price: 2499,
+                image: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?q=80&w=800",
+                specs: { Port: "USB-C", Tech: "GaN Technology", Warranty: "6 Months" }
+            }
+        ];
+
+        // --- CLIENT CONFIGURATION END ---
+
+        let currentSlide = 0;
+        let slideInterval;
+        const sliderContainer = document.getElementById('slider-container');
+        
+        // Populate Slides
+        slidesData.forEach((slide, index) => {
+            sliderContainer.innerHTML += `
+                <div class="slide ${index === 0 ? 'active' : ''}">
+                    <img src="${slide.img}" alt="${slide.brand}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-end p-12 text-center text-white pb-20 z-20">
+                        <h2 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight">${slide.brand}</h2>
+                        <p class="text-2xl md:text-3xl font-light">${slide.text}</p>
+                    </div>
+                </div>
+            `;
+        });
+
+        const slides = document.querySelectorAll('.slide');
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Made the transition interval faster (3 seconds instead of 5)
+        function startSlider() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 3000); 
+        }
+
+        // Render Functions
+        function formatPrice(price) { return `₹${price.toLocaleString('en-IN')}`; }
+
+        function createProductCard(product, isMobile = true) {
+            return `
+                <div class="bg-brand-card rounded-xl p-4 shadow-sm border border-brand-accent/50 hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col group" onclick='openModal(${JSON.stringify(product)})'>
+                    <div class="h-48 rounded-lg mb-4 overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="mt-auto flex-grow flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-muted uppercase tracking-wider">${isMobile ? product.brand : product.type}</span>
+                            <h3 class="font-bold text-lg leading-tight mt-1 mb-2 text-brand-primary">${product.name}</h3>
+                        </div>
+                        <p class="font-bold text-xl text-brand-primary mt-2">${formatPrice(product.price)}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMobiles() {
+            const filter = document.getElementById('mobile-filter').value;
+            const sort = document.getElementById('mobile-sort').value;
+            
+            let filtered = filter === 'All' ? [...mobiles] : mobiles.filter(m => m.brand === filter);
+            filtered.sort((a, b) => sort === 'low' ? a.price - b.price : b.price - a.price);
+
+            document.getElementById('mobiles-grid').innerHTML = filtered.map(m => createProductCard(m, true)).join('');
+        }
+
+        function renderAccessories() {
+            document.getElementById('accessories-grid').innerHTML = accessories.map(a => createProductCard(a, false)).join('');
+        }
+
+        // Modal Logic
+        function openModal(product) {
+            const modal = document.getElementById('product-modal');
+            const content = document.getElementById('modal-content');
+            
+            let specHtml = Object.entries(product.specs).map(([key, value]) => `
+                <div class="py-3 border-b border-brand-accent/30 flex justify-between gap-4">
+                    <span class="font-medium text-brand-muted">${key}</span>
+                    <span class="text-right font-semibold text-brand-primary">${value}</span>
+                </div>
+            `).join('');
+
+            const whatsappMessage = encodeURIComponent(`Hi ON Communications! I am interested in buying the ${product.name} priced at ${formatPrice(product.price)}. Is it available in-store?`);
+
+            content.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-8 p-8">
+                    <div class="w-full md:w-1/2 rounded-xl flex items-center justify-center border border-brand-accent/50 overflow-hidden bg-brand-bg">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="w-full md:w-1/2 flex flex-col">
+                        <div class="mb-6">
+                            <span class="text-xs font-semibold text-brand-muted uppercase tracking-wider">${product.brand || product.type}</span>
+                            <h2 class="text-4xl font-bold mt-1 text-brand-primary leading-tight">${product.name}</h2>
+                        </div>
+                        
+                        <p class="text-3xl font-bold text-brand-primary mb-8">${formatPrice(product.price)}</p>
+                        
+                        <h3 class="text-xl font-semibold mb-4 text-brand-primary border-t border-brand-accent pt-6">Detailed Specifications</h3>
+                        <div class="mb-10 space-y-1 flex-grow">
+                            ${specHtml}
+                        </div>
+                        
+                        <a href="https://wa.me/${CLIENT_WHATSAPP_NUMBER}?text=${whatsappMessage}" target="_blank" 
+                           class="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold text-center hover:bg-[#128C7E] transition flex items-center justify-center gap-3 text-lg shadow-lg">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Buy Now on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            `;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleServiceSubmit(e) {
+            e.preventDefault();
+            
+            // Extract values from the form inputs
+            const brand = document.getElementById('service-brand').value;
+            const type = document.getElementById('service-type').value;
+            const issue = document.getElementById('service-issue').value;
+            
+            // Prepare the email details
+            const emailAddress = "hello@oncommunications.com";
+            const subject = encodeURIComponent(`New Repair Request: ${brand} ${type}`);
+            const body = encodeURIComponent(`Hello,\n\nI would like to request a repair service. Here are the details:\n\nBrand: ${brand}\nProduct Type: ${type}\nIssue Description: ${issue}\n\nPlease get back to me to confirm the appointment.\n\nThank you.`);
+            
+            // Trigger the mailto link
+            window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+            
+            alert("Repair request details compiled! Your email client will now open to send the request.");
+            e.target.reset();
+        }
+
+        // --- Initialize Page ---
+        renderMobiles();
+        renderAccessories();
+        startSlider();
+    </script>
+</body>
+</html>
