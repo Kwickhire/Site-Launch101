@@ -39,6 +39,41 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* Marquee Animation */
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+        .marquee-container:before, .marquee-container:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .marquee-container:before { left: 0; background: linear-gradient(to right, #0a0a0c 0%, transparent 100%); }
+        .marquee-container:after { right: 0; background: linear-gradient(to left, #0a0a0c 0%, transparent 100%); }
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+            align-items: center;
+        }
+        .marquee-item {
+            padding: 0 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
     </style>
     <script>
         tailwind.config = {
@@ -224,8 +259,237 @@
         </div>
     </section>
 
-    <footer class="border-t border-gray-800 py-8 text-center text-gray-500 fade-in">
-        <p>&copy; 2026 Kwickhire. Architecting digital futures.</p>
+    <section class="py-12 border-y border-gray-800 bg-card overflow-hidden fade-in">
+        <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Our Partners</h2>
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <div class="marquee-item"><img src="images/supabase.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Supabase"></div>
+                <div class="marquee-item"><img src="images/cloudflare.png" class="w-12 h-12 md:w-16 md:h-16" alt="Cloudflare"></div>
+                <div class="marquee-item"><img src="images/godaddy.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="GoDaddy"></div>
+                <div class="marquee-item"><img src="images/whatsapp.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="WhatsApp"></div>
+                <div class="marquee-item"><img src="images/github.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="GitHub"></div>
+                <div class="marquee-item"><img src="images/gemini.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Google Gemini"></div>
+                <div class="marquee-item"><img src="images/gmail.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Gmail"></div>
+                <div class="marquee-item"><img src="images/figma.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Figma"></div>
+                <div class="marquee-item"><img src="images/stripe.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Stripe"></div>
+                <div class="marquee-item"><img src="images/razorpay.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Razorpay"></div>
+                <div class="marquee-item"><img src="images/mailchimp.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Mailchimp"></div>
+                <div class="marquee-item"><img src="images/brevo.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Brevo"></div>
+                <div class="marquee-item"><i data-lucide="heart" class="text-pink-500 w-12 h-12 md:w-16 md:h-16"></i></div>
+                <div class="marquee-item"><img src="images/hostinger.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Hostinger"></div>
+                <div class="marquee-item"><img src="images/botpress.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Botpress"></div>
+                <div class="marquee-item"><img src="images/claude.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Claude"></div>
+                <div class="marquee-item"><img src="images/vercel.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Vercel"></div>
+                <div class="marquee-item"><img src="images/openai.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="OpenAI"></div>
+                <div class="marquee-item"><img src="images/tailwind.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Tailwind"></div>
+                <div class="marquee-item"><img src="images/supabase.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Supabase"></div>
+                <div class="marquee-item"><img src="images/cloudflare.png" class="w-12 h-12 md:w-16 md:h-16" alt="Cloudflare"></div>
+                <div class="marquee-item"><img src="images/godaddy.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="GoDaddy"></div>
+                <div class="marquee-item"><img src="images/whatsapp.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="WhatsApp"></div>
+                <div class="marquee-item"><img src="images/github.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="GitHub"></div>
+                <div class="marquee-item"><img src="images/gemini.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Google Gemini"></div>
+                <div class="marquee-item"><img src="images/gmail.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Gmail"></div>
+                <div class="marquee-item"><img src="images/figma.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Figma"></div>
+                <div class="marquee-item"><img src="images/stripe.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Stripe"></div>
+                <div class="marquee-item"><img src="images/razorpay.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Razorpay"></div>
+                <div class="marquee-item"><img src="images/mailchimp.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Mailchimp"></div>
+                <div class="marquee-item"><img src="images/brevo.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Brevo"></div>
+                <div class="marquee-item"><i data-lucide="heart" class="text-pink-500 w-12 h-12 md:w-16 md:h-16"></i></div>
+                <div class="marquee-item"><img src="images/hostinger.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Hostinger"></div>
+                <div class="marquee-item"><img src="images/botpress.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Botpress"></div>
+                <div class="marquee-item"><img src="images/claude.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Claude"></div>
+                <div class="marquee-item"><img src="images/vercel.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Vercel"></div>
+                <div class="marquee-item"><img src="images/openai.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="OpenAI"></div>
+                <div class="marquee-item"><img src="images/tailwind.jpg" class="w-12 h-12 md:w-16 md:h-16" alt="Tailwind"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-7xl mx-auto fade-in" id="testimonials">
+        <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Customer Testimonials</h2>
+        <div class="relative flex items-center justify-center max-w-5xl mx-auto">
+            <button id="prev-btn" class="absolute left-0 md:-left-6 z-10 p-3 bg-charcoal border border-gray-700 rounded-full text-white hover:bg-electric hover:border-electric transition-all shadow-lg focus:outline-none">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            
+            <div class="overflow-hidden w-full px-10 md:px-6">
+                <div id="testimonial-track" class="flex transition-transform duration-500 ease-in-out w-full">
+                    <div class="testimonial-card w-full md:w-1/2 shrink-0 px-4">
+                        <div class="bg-card border border-gray-800 hover:border-cyan transition-colors rounded-3xl p-8 h-full flex flex-col justify-between">
+                            <div class="flex gap-1 text-electric mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                            </div>
+                            <p class="text-gray-300 mb-6 text-lg">"The level of precision Kwickhire brought to our website rebuild was astounding. Our load times dropped significantly, and the new design perfectly captures our brand."</p>
+                            <div>
+                                <p class="text-white font-bold text-lg">Rahul M.</p>
+                                <p class="text-sm text-cyan">Tech Startup CEO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card w-full md:w-1/2 shrink-0 px-4">
+                        <div class="bg-card border border-gray-800 hover:border-electric transition-colors rounded-3xl p-8 h-full flex flex-col justify-between">
+                            <div class="flex gap-1 text-electric mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                            </div>
+                            <p class="text-gray-300 mb-6 text-lg">"Deploying the WhatsApp AI bot changed everything for us. Customer queries are handled 24/7 without us lifting a finger. Truly exceptional work."</p>
+                            <div>
+                                <p class="text-white font-bold text-lg">Priya S.</p>
+                                <p class="text-sm text-electric">E-commerce Founder</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card w-full md:w-1/2 shrink-0 px-4">
+                        <div class="bg-card border border-gray-800 hover:border-cyan transition-colors rounded-3xl p-8 h-full flex flex-col justify-between">
+                            <div class="flex gap-1 text-electric mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                            </div>
+                            <p class="text-gray-300 mb-6 text-lg">"Their data-driven approach to our social media management tripled our engagement in just two months. Highly professional team."</p>
+                            <div>
+                                <p class="text-white font-bold text-lg">Vikram A.</p>
+                                <p class="text-sm text-cyan">Marketing Director</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card w-full md:w-1/2 shrink-0 px-4">
+                        <div class="bg-card border border-gray-800 hover:border-electric transition-colors rounded-3xl p-8 h-full flex flex-col justify-between">
+                            <div class="flex gap-1 text-electric mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-electric"></i>
+                                <i data-lucide="star-half" class="w-5 h-5 fill-electric"></i>
+                            </div>
+                            <p class="text-gray-300 mb-6 text-lg">"From consultation to deployment, the process was seamless. They understood our vision perfectly and executed it with speed."</p>
+                            <div>
+                                <p class="text-white font-bold text-lg">Anita K.</p>
+                                <p class="text-sm text-electric">Operations Head</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="next-btn" class="absolute right-0 md:-right-6 z-10 p-3 bg-charcoal border border-gray-700 rounded-full text-white hover:bg-electric hover:border-electric transition-all shadow-lg focus:outline-none">
+                <i data-lucide="chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-card border-t border-gray-800 fade-in">
+        <div class="max-w-4xl mx-auto text-gray-300">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">About Us</h2>
+                <h3 class="text-xl md:text-2xl text-gradient font-semibold">Precision-Driven Digital Excellence</h3>
+            </div>
+            
+            <p class="text-lg leading-relaxed mb-8">
+                Welcome to Kwickhire, your strategic partner in navigating the new-age digital landscape. We don't just build online presences; we engineer growth through high-impact digital services, including professional website building, intelligent WhatsApp bot integration, and data-driven social media management.
+            </p>
+
+            <h3 class="text-2xl font-bold text-white mb-4">Our Mission: Quality at Speed</h3>
+            <p class="text-lg leading-relaxed mb-6">
+                At Kwickhire, our name is our promise. We understand that in the digital economy, being first is important, but being precise is vital. Our work ethos is built on three pillars:
+            </p>
+            <ul class="space-y-3 mb-10 text-lg">
+                <li class="flex items-start gap-3"><i data-lucide="chevron-right" class="text-cyan mt-1 shrink-0"></i> <span><strong>Precision:</strong> Every pixel and line of code is intentional.</span></li>
+                <li class="flex items-start gap-3"><i data-lucide="chevron-right" class="text-cyan mt-1 shrink-0"></i> <span><strong>Detail:</strong> We leave no stone unturned, from UI/UX nuances to back-end security.</span></li>
+                <li class="flex items-start gap-3"><i data-lucide="chevron-right" class="text-cyan mt-1 shrink-0"></i> <span><strong>Efficiency:</strong> We deliver "Kwick" results without compromising on the depth of the solution.</span></li>
+            </ul>
+
+            <h3 class="text-2xl font-bold text-white mb-4">The Kwickhire Edge: Research-First Methodology</h3>
+            <p class="text-lg leading-relaxed mb-6">
+                What sets us apart is our refusal to use cookie-cutter templates. Before we design a single page or script a bot, we dive deep into your industry's DNA:
+            </p>
+            <ul class="space-y-3 mb-10 text-lg">
+                <li class="flex items-start gap-3"><i data-lucide="check-circle" class="text-electric mt-1 shrink-0"></i> <span><strong>Niche Surveys:</strong> We conduct comprehensive surveys to understand your target audience’s pain points and preferences.</span></li>
+                <li class="flex items-start gap-3"><i data-lucide="check-circle" class="text-electric mt-1 shrink-0"></i> <span><strong>Competitor Analysis:</strong> We perform extensive research on your competitors to identify market gaps, ensuring your brand doesn't just compete—it dominates.</span></li>
+                <li class="flex items-start gap-3"><i data-lucide="check-circle" class="text-electric mt-1 shrink-0"></i> <span><strong>Data-Backed Strategy:</strong> Our digital services are fueled by market intelligence, ensuring your investment yields measurable ROI.</span></li>
+            </ul>
+
+            <h3 class="text-2xl font-bold text-white mb-4">New-Age Digital Services</h3>
+            <p class="text-lg leading-relaxed mb-8">
+                Whether you are looking to automate customer journeys with AI-powered WhatsApp bots, build a high-converting website, or scale your brand through strategic social media management, Kwickhire provides the technical expertise and creative insight to bring your vision to life.
+            </p>
+            <p class="text-xl text-cyan font-semibold italic border-l-4 border-electric pl-6">
+                Let’s build the future of your business, with precision and speed.
+            </p>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800 pt-16 pb-8 px-6 bg-[#050505] fade-in">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <div class="text-3xl font-extrabold tracking-tighter text-white mb-4">Kwick<span class="text-cyan">hire</span></div>
+                <p class="text-gray-400 mb-6 max-w-sm">Architecting digital futures through premium web development and AI automation.</p>
+                <div class="flex items-center gap-5">
+                    <a href="#" class="w-10 h-10 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-cyan hover:bg-gray-800 transition-all">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" class="w-6 h-6" alt="Facebook">
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-electric hover:bg-gray-800 transition-all">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" class="w-6 h-6" alt="Instagram">
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-card border border-gray-800 flex items-center justify-center hover:border-gray-500 hover:bg-gray-800 transition-all">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold text-xl mb-6">Contact Us</h3>
+                <ul class="space-y-4 text-gray-400">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-cyan shrink-0"></i>
+                        <span>+91 00000 00000</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-electric shrink-0"></i>
+                        <span>hello@kwickhire.in</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-cyan shrink-0 mt-0.5"></i>
+                        <span>North Dumdum, West Bengal, India</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-white font-bold text-xl mb-6">Office Hours</h3>
+                <ul class="space-y-4 text-gray-400">
+                    <li class="flex items-center justify-between border-b border-gray-800 pb-2">
+                        <span>Monday - Friday</span>
+                        <span class="text-white">9:00 AM - 6:00 PM</span>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <span>Saturday</span>
+                        <span class="text-white">9:00 AM - 1:00 PM</span>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <span>Sunday</span>
+                        <span class="text-gray-500">Closed</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-gray-800 pt-8 text-sm text-gray-500">
+            <p>&copy; 2026 Kwickhire. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-cyan transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-cyan transition-colors">Terms of Service</a>
+            </div>
+        </div>
     </footer>
 
     <a href="https://wa.me/9477642624?text=Hello%20Kwickhire!%20I%20would%20like%20to%20avail%20your%20services." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 group z-40 flex items-center gap-3">
@@ -294,7 +558,6 @@
             mobileMenu.classList.toggle('flex');
         });
 
-        // Close mobile menu when a link is clicked
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -308,7 +571,6 @@
         
         function openModal() {
             modal.classList.remove('hidden');
-            // Ensure any opened mobile menu is closed when modal opens
             mobileMenu.classList.add('hidden');
             mobileMenu.classList.remove('flex');
         }
@@ -317,12 +579,60 @@
             modal.classList.add('hidden');
         }
 
-        // Close modal if user clicks outside the modal content box
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
             }
         });
+
+        // Testimonial Carousel Logic
+        const track = document.getElementById('testimonial-track');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const cards = document.querySelectorAll('.testimonial-card');
+
+        if(track && prevBtn && nextBtn && cards.length > 0) {
+            let currentIndex = 0;
+
+            function updateCarousel() {
+                const isMobile = window.innerWidth < 768;
+                const cardsToShow = isMobile ? 1 : 2;
+                const maxIndex = Math.max(0, cards.length - cardsToShow);
+                
+                if (currentIndex > maxIndex) currentIndex = maxIndex;
+                if (currentIndex < 0) currentIndex = 0;
+                
+                const percentage = -(currentIndex * (100 / cardsToShow));
+                track.style.transform = `translateX(${percentage}%)`;
+                
+                prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+                prevBtn.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+                
+                nextBtn.style.opacity = currentIndex === maxIndex ? '0.3' : '1';
+                nextBtn.style.cursor = currentIndex === maxIndex ? 'not-allowed' : 'pointer';
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const isMobile = window.innerWidth < 768;
+                const cardsToShow = isMobile ? 1 : 2;
+                const maxIndex = Math.max(0, cards.length - cardsToShow);
+                
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            window.addEventListener('resize', updateCarousel);
+            updateCarousel(); // Initialize
+        }
 
         // Intersection Observer for scroll fade-ins
         document.addEventListener("DOMContentLoaded", () => {
