@@ -96,6 +96,11 @@
     }
     .marquee-container::before { left: 0; background: linear-gradient(to right, #0a0a0c 0%, transparent 100%); }
     .marquee-container::after { right: 0; background: linear-gradient(to left, #0a0a0c 0%, transparent 100%); }
+    
+    /* Custom Scrollbar for Policies */
+    .policy-scroll::-webkit-scrollbar { width: 6px; }
+    .policy-scroll::-webkit-scrollbar-track { background: #0a0a0c; border-radius: 8px; }
+    .policy-scroll::-webkit-scrollbar-thumb { background: #8a2be2; border-radius: 8px; }
     </style>
     <script>
         tailwind.config = {
@@ -498,8 +503,8 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-gray-800 pt-8 text-sm text-gray-500">
             <p>&copy; 2026 Kwickhire. All rights reserved.</p>
             <div class="flex gap-6 mt-4 md:mt-0">
-                <a href="#" class="hover:text-cyan transition-colors">Privacy Policy</a>
-                <a href="#" class="hover:text-cyan transition-colors">Terms of Service</a>
+                <a href="#" onclick="event.preventDefault(); openPrivacyModal();" class="hover:text-cyan transition-colors">Privacy Policy</a>
+                <a href="#" onclick="event.preventDefault(); openTermsModal();" class="hover:text-cyan transition-colors">Terms of Service</a>
             </div>
         </div>
     </footer>
@@ -558,6 +563,50 @@
         </div>
     </div>
 
+    <div id="privacy-modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 transition-opacity">
+        <div class="bg-card border border-gray-800 rounded-3xl p-8 max-w-2xl w-full relative shadow-2xl transform transition-transform">
+            <button onclick="closePrivacyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="x"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-white mb-6">Privacy Policy</h2>
+            <div class="max-h-[60vh] overflow-y-auto text-gray-400 text-sm space-y-4 pr-4 policy-scroll">
+                <p><strong>Effective Date:</strong> April 8, 2026</p>
+                <p>Welcome to Kwickhire. We are committed to protecting your personal information and your right to privacy.</p>
+                <h3 class="text-white font-semibold mt-4">1. Information We Collect</h3>
+                <p>We collect personal information that you voluntarily provide to us when you express an interest in obtaining information about us or our products and services. The personal information that we collect depends on the context of your interactions with us, and may include: Names, Phone Numbers, and Service Preferences.</p>
+                <h3 class="text-white font-semibold mt-4">2. How We Use Your Information</h3>
+                <p>We use the information we collect or receive to communicate with you, to request feedback, to manage projects, and to facilitate the delivery of our digital services.</p>
+                <h3 class="text-white font-semibold mt-4">3. Will Your Information Be Shared?</h3>
+                <p>We only share information with your explicit consent, to comply with laws, to provide you with services (e.g., sharing non-sensitive technical data with essential third-party service providers), to protect your rights, or to fulfill business obligations. We absolutely do not sell your personal data.</p>
+                <h3 class="text-white font-semibold mt-4">4. Contact Us</h3>
+                <p>If you have questions or comments about this notice, you may email us at hellokwickhire@zohomail.in or contact us by post at: North Dumdum, West Bengal, India.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 transition-opacity">
+        <div class="bg-card border border-gray-800 rounded-3xl p-8 max-w-2xl w-full relative shadow-2xl transform transition-transform">
+            <button onclick="closeTermsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="x"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-white mb-6">Terms of Service</h2>
+            <div class="max-h-[60vh] overflow-y-auto text-gray-400 text-sm space-y-4 pr-4 policy-scroll">
+                <p><strong>Effective Date:</strong> April 8, 2026</p>
+                <p>These Terms of Service constitute a legally binding agreement made between you and Kwickhire, concerning your access to and use of the kwickhire.in website and our digital services.</p>
+                <h3 class="text-white font-semibold mt-4">1. Services Provided</h3>
+                <p>Kwickhire provides digital services including, but not limited to, Website Development, WhatsApp Automation, and Social Media Strategy. Specific deliverables and timelines will be agreed upon per project tier (e.g., Launchpad, Orbit, Stratosphere) or via custom consultation.</p>
+                <h3 class="text-white font-semibold mt-4">2. Payment and Refund Policy</h3>
+                <p>Payments must be made according to the agreed-upon invoicing schedule. Due to the custom, labor-intensive nature of our digital services, payments are non-refundable once architectural or developmental work has officially commenced, unless otherwise stated in writing.</p>
+                <h3 class="text-white font-semibold mt-4">3. Intellectual Property Rights</h3>
+                <p>Upon full and final payment, you will own the final digital deliverables created specifically for your project. Kwickhire retains the right to use the completed work in our portfolio and marketing materials. We also retain ownership of any underlying pre-existing code, modules, or templates used during the build.</p>
+                <h3 class="text-white font-semibold mt-4">4. Limitation of Liability</h3>
+                <p>In no event will Kwickhire be liable to you or any third party for any direct, indirect, consequential, exemplary, incidental, special, or punitive damages, including lost profit, lost revenue, loss of data, or other damages arising from your use of the site or our implemented services.</p>
+                <h3 class="text-white font-semibold mt-4">5. Contact Us</h3>
+                <p>To resolve a complaint regarding the Site or Services, or to receive further information, please contact us at: hellokwickhire@zohomail.in or +91 94776 42624.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
 
@@ -589,24 +638,27 @@
             });
         });
 
-        // Contact Modal Logic
+        // Modal Logic
         const modal = document.getElementById('contact-modal');
+        const privacyModal = document.getElementById('privacy-modal');
+        const termsModal = document.getElementById('terms-modal');
         
         function openModal() {
             modal.classList.remove('hidden');
             mobileMenu.classList.add('hidden');
             mobileMenu.classList.remove('flex');
         }
-        
-        function closeModal() {
-            modal.classList.add('hidden');
-        }
+        function closeModal() { modal.classList.add('hidden'); }
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
+        function openPrivacyModal() { privacyModal.classList.remove('hidden'); }
+        function closePrivacyModal() { privacyModal.classList.add('hidden'); }
+
+        function openTermsModal() { termsModal.classList.remove('hidden'); }
+        function closeTermsModal() { termsModal.classList.add('hidden'); }
+
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacyModal(); });
+        termsModal.addEventListener('click', (e) => { if (e.target === termsModal) closeTermsModal(); });
 
         // Testimonial Carousel Logic
         const track = document.getElementById('testimonial-track');
