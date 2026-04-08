@@ -40,40 +40,62 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Marquee Animation */
-        .marquee-container {
-            display: flex;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-        .marquee-container:before, .marquee-container:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 150px;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .marquee-container:before { left: 0; background: linear-gradient(to right, #0a0a0c 0%, transparent 100%); }
-        .marquee-container:after { right: 0; background: linear-gradient(to left, #0a0a0c 0%, transparent 100%); }
-        .marquee-content {
-            display: flex;
-            width: max-content;
-            animation: scroll 40s linear infinite;
-            align-items: center;
-        }
-        .marquee-item {
-            padding: 0 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        /* Optimized Marquee for Colorful, Compact Logos */
+    @keyframes scroll {
+    0% { transform: translateX(0); }
+    /* Calculation: -[Item Width (250px)] * [Number of unique logos (6)] */
+    100% { transform: translateX(-1500px); } 
+    }
+
+    .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1.5rem 0; /* Reduced padding to keep section slim */
+    }
+
+    .marquee-content {
+    display: flex;
+    /* Calculation: [Item Width (250px)] * [Total items (12)] */
+    width: 3000px; 
+    animation: scroll 25s linear infinite;
+    }
+
+   .marquee-item {
+    width: 250px; /* Slimmer width to prevent section bloating */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    }
+
+    .marquee-item img {
+    max-height: 55px; /* Balanced height: not too small, not section-breaking */
+    width: auto;
+    filter: none; /* REVEALS ORIGINAL COLORS */
+    opacity: 0.9;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .marquee-item img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    }
+
+    /* Edge Fades */
+    .marquee-container::before,
+    .marquee-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    }
+    .marquee-container::before { left: 0; background: linear-gradient(to right, #0a0a0c 0%, transparent 100%); }
+    .marquee-container::after { right: 0; background: linear-gradient(to left, #0a0a0c 0%, transparent 100%); }
     </style>
     <script>
         tailwind.config = {
@@ -258,6 +280,38 @@
             </a>
         </div>
     </section>
+
+    <section class="py-12 border-y border-gray-800 bg-card fade-in">
+        <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Our Tech Stack</h2>
+        </div>
+
+        <div class="marquee-container">
+        <div class="marquee-content">
+            <div class="marquee-item"><img src="logo/chatgpt.svg" alt="ChatGPT"></div>
+            <div class="marquee-item"><img src="logo/claude.svg" alt="Claude"></div>
+            <div class="marquee-item"><img src="logo/cloudflare.png" alt="Cloudflare"></div>
+            <div class="marquee-item"><img src="logo/godaddy.webp" alt="GoDaddy"></div>
+            <div class="marquee-item"><img src="logo/whatsapp.png" alt="WhatsApp"></div>
+            <div class="marquee-item"><img src="logo/geminilogo.png" alt="Google Gemini"></div>
+            <div class="marquee-item"><img src="logo/figma.svg" alt="Figma"></div>
+            <div class="marquee-item"><img src="logo/stripe.svg" alt="Stripe"></div>
+            <div class="marquee-item"><img src="logo/razorpay.svg" alt="Razorpay"></div>
+            <div class="marquee-item"><img src="logo/mailchimp.svg" alt="Mailchimp"></div>
+            
+            <div class="marquee-item"><img src="logo/chatgpt.svg" alt="ChatGPT"></div>
+            <div class="marquee-item"><img src="logo/claude.svg" alt="Claude"></div>
+            <div class="marquee-item"><img src="logo/cloudflare.png" alt="Cloudflare"></div>
+            <div class="marquee-item"><img src="logo/godaddy.webp" alt="GoDaddy"></div>
+            <div class="marquee-item"><img src="logo/whatsapp.png" alt="WhatsApp"></div>
+            <div class="marquee-item"><img src="logo/geminilogo.png" alt="Google Gemini"></div>
+            <div class="marquee-item"><img src="logo/figma.svg" alt="Figma"></div>
+            <div class="marquee-item"><img src="logo/stripe.svg" alt="Stripe"></div>
+            <div class="marquee-item"><img src="logo/razorpay.svg" alt="Razorpay"></div>
+            <div class="marquee-item"><img src="logo/mailchimp.svg" alt="Mailchimp"></div>
+        </div>
+    </div>
+</section>
 
     <section class="py-24 px-6 max-w-7xl mx-auto fade-in" id="testimonials">
         <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Customer Testimonials</h2>
