@@ -43,8 +43,8 @@
         /* Optimized Marquee for Colorful, Compact Logos */
     @keyframes scroll {
     0% { transform: translateX(0); }
-    /* Calculation: -[Item Width (250px)] * [Number of unique logos (6)] */
-    100% { transform: translateX(-1500px); } 
+    /* Calculation: -[Item Width (195px)] * [Number of unique logos (6)] */
+    100% { transform: translateX(-1170px); } 
     }
 
     .marquee-container {
@@ -56,18 +56,18 @@
 
     .marquee-content {
     display: flex;
-    /* Calculation: [Item Width (250px)] * [Total items (12)] */
-    width: 3000px; 
+    /* Calculation: [Item Width (195px)] * [Total items (12)] */
+    width: 2340px; 
     animation: scroll 25s linear infinite;
     }
 
    .marquee-item {
-    width: 250px; /* Slimmer width to prevent section bloating */
+    width: 195px; /* Slimmer width to prevent section bloating */
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 30px;
+    padding: 0 20px;
     }
 
     .marquee-item img {
