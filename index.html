@@ -40,58 +40,20 @@
             -webkit-text-fill-color: transparent;
         }
 
- /* Hero Image Styles */
+  /* Hero Image Styles */
         .hero-bg {
-            background: linear-gradient(rgba(10, 10, 12, 0.6), rgba(10, 10, 12, 0.6)), url('landingpage.png');
+            background: linear-gradient(rgba(10, 10, 12, 0.4), rgba(10, 10, 12, 0.8)), url('landingpage.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
 
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
+        /* Fix for mobile browsers where background-attachment: fixed causes cropping/zooming */
+        @media (max-width: 1024px) {
+            .hero-bg {
+                background-attachment: scroll;
+            }
         }
-
-        .marquee-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            padding: 1.5rem 0;
-        }
-
-        .marquee-content {
-            display: flex;
-            width: max-content; 
-            animation: scroll 15s linear infinite;
-        }
-
-        .marquee-item {
-            width: 195px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 20px;
-        }
-
-        .marquee-item img {
-            max-height: 55px;
-            width: auto;
-            opacity: 0.9;
-        }
-
-        .marquee-container::before,
-        .marquee-container::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 100px;
-            height: 100%;
-            z-index: 2;
-        }
-        .marquee-container::before { left: 0; background: linear-gradient(to right, #0a0a0c 0%, transparent 100%); }
-        .marquee-container::after { right: 0; background: linear-gradient(to left, #0a0a0c 0%, transparent 100%); }
 
 /* Pulse Badge Animation */
         @keyframes pulse-badge {
