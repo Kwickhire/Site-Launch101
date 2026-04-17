@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -31,7 +31,7 @@
     </script>
 
     <style>
-        body { background-color: #FAFAFA; color: #1A1A1A; }
+        body { background-color: #FAFAFA; color: #1A1A1A; overflow-x: hidden; }
         
         /* Flowing Menu Effect */
         .nav-link {
@@ -55,35 +55,84 @@
             transform-origin: bottom left;
         }
 
-        /* Hero Cursor Effect */
-        #custom-cursor {
-            pointer-events: none;
-            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
-            mix-blend-mode: difference;
+        /* Hero Zoom Animation */
+        @keyframes heroZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+        .hero-zoom {
+            animation: heroZoom 15s ease-in-out infinite alternate;
         }
 
-        /* Infinite Carousel */
+        /* Infinite Carousel - Responsive */
         .carousel-track {
             display: flex;
-            width: calc(250px * 14); /* Adjust based on item count */
-            animation: scroll 20s linear infinite;
+            width: calc(280px * 14); /* Mobile width calculation */
+            animation: scroll 30s linear infinite;
         }
+        .carousel-item {
+            width: 280px; /* Mobile item width */
+            flex-shrink: 0;
+            padding: 0 12px;
+        }
+
         @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 7)); }
+            100% { transform: translateX(calc(-280px * 7)); }
         }
+
+        @media (min-width: 768px) {
+            .carousel-track {
+                width: calc(350px * 14); /* Desktop width calculation */
+            }
+            .carousel-item {
+                width: 350px; /* Desktop item width */
+                padding: 0 16px;
+            }
+            @keyframes scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(calc(-350px * 7)); }
+            }
+        }
+
         .carousel-track:hover { animation-play-state: paused; }
 
-        /* 2D Scroll Fade-in */
+        /* Animation Classes */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, visibility;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
         }
-        .fade-in-section.is-visible {
+        .slide-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .slide-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        /* Visible State for Animations */
+        .is-visible {
             opacity: 1;
-            transform: none;
+            transform: translate(0) scale(1);
         }
 
         /* Hide Scrollbar for toggle section */
@@ -91,25 +140,36 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-brand-accent selection:text-white">
+<body class="antialiased selection:bg-brand-accent selection:text-white relative">
 
     <nav class="fixed w-full z-50 bg-brand-offwhite/90 backdrop-blur-md border-b border-brand-beige py-2 px-6 md:px-12 transition-all duration-300">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="max-w-7xl mx-auto flex justify-between items-center relative">
             <a href="#" class="block">
                 <img src="images/logo.png" alt="Whitestone Realtors Logo" class="h-14 md:h-16 w-auto object-contain mix-blend-multiply">
             </a>
+            
             <div class="hidden md:flex space-x-8 items-center font-medium">
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#projects" class="nav-link">Projects</a>
-                <button onclick="openApptPage()" class="bg-brand-dark text-brand-offwhite px-5 py-2 rounded hover:bg-brand-accent transition-colors">Book an Appointment</button>
+                <button onclick="openApptPage()" class="bg-brand-dark text-brand-offwhite px-5 py-2 rounded hover:bg-brand-accent transition-all duration-300 transform hover:-translate-y-1 shadow-md">Book an Appointment</button>
             </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-brand-dark text-2xl focus:outline-none hover:text-brand-accent transition">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-offwhite/95 backdrop-blur-md border-b border-brand-beige flex-col items-center py-6 space-y-6 font-medium shadow-xl">
+            <a href="#home" class="nav-link mobile-link text-lg">Home</a>
+            <a href="#projects" class="nav-link mobile-link text-lg">Projects</a>
+            <button onclick="openApptPage(); closeMobileMenu();" class="bg-brand-dark text-brand-offwhite px-6 py-3 rounded hover:bg-brand-accent transition-colors shadow-md">Book an Appointment</button>
         </div>
     </nav>
 
     <div id="appt-page" class="fixed inset-0 z-[100] bg-brand-offwhite hidden flex-col items-center justify-center transition-opacity duration-300 opacity-0 overflow-y-auto pt-20 pb-10 px-4">
-        <button onclick="closeApptPage()" class="absolute top-6 right-6 md:right-12 text-5xl font-bold text-gray-400 hover:text-brand-dark transition">&times;</button>
+        <button onclick="closeApptPage()" class="absolute top-6 right-6 md:right-12 text-5xl font-bold text-gray-400 hover:text-brand-dark transition transform hover:rotate-90">&times;</button>
         
-        <div class="max-w-lg w-full bg-white p-10 shadow-2xl border border-brand-beige rounded-sm">
+        <div class="max-w-lg w-full bg-white p-10 shadow-2xl border border-brand-beige rounded-sm transform scale-95 transition-transform duration-500 ease-out" id="appt-form-container">
             <div class="text-center mb-8">
                 <img src="images/logo.png" alt="Whitestone Realtors" class="h-16 mx-auto mb-4 object-contain">
                 <h2 class="text-3xl font-bold text-brand-dark">Schedule a Visit</h2>
@@ -119,15 +179,15 @@
             <form class="flex flex-col space-y-5 text-left">
                 <div>
                     <label class="block text-sm font-semibold mb-1 text-brand-dark">Full Name</label>
-                    <input type="text" placeholder="e.g. Rahul Sharma" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
+                    <input type="text" placeholder="e.g. Rahul Sharma" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent transition" required>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold mb-1 text-brand-dark">Phone Number</label>
-                    <input type="tel" placeholder="+91 98765 43210" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
+                    <input type="tel" placeholder="+91 98765 43210" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent transition" required>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold mb-1 text-brand-dark">Project Interested In</label>
-                    <select class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white" required>
+                    <select class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white transition" required>
                         <option value="" disabled selected>Select a Project</option>
                         <option>Shivalik Heights</option>
                         <option>Gulmohar Estates</option>
@@ -136,38 +196,36 @@
                         <option>Kailash Crest</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full bg-brand-dark text-white px-8 py-4 font-bold hover:bg-brand-accent transition mt-4 shadow-lg">Confirm Appointment</button>
+                <button type="submit" class="w-full bg-brand-dark text-white px-8 py-4 font-bold hover:bg-brand-accent transition-colors duration-300 mt-4 shadow-lg">Confirm Appointment</button>
             </form>
         </div>
     </div>
 
-    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden cursor-none">
-        <div id="custom-cursor" class="fixed w-8 h-8 border-2 border-white rounded-full z-40 transform -translate-x-1/2 -translate-y-1/2"></div>
-        
-        <div class="absolute inset-0 z-0">
-            <img src="images/hero.jpg" alt="Premium Villa" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black/30"></div>
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="images/hero.jpg" alt="Premium Villa" class="w-full h-full object-cover hero-zoom">
+            <div class="absolute inset-0 bg-black/40"></div>
         </div>
 
-        <div class="relative z-10 text-center text-white px-4">
+        <div class="relative z-10 text-center text-white px-4 slide-up">
             <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight drop-shadow-lg">Elevate Your Living</h1>
             <p class="text-xl md:text-2xl font-light drop-shadow-md">Discover premium spaces curated for excellence.</p>
         </div>
     </section>
 
-    <section class="py-16 bg-brand-beige px-6 fade-in-section">
+    <section class="py-16 bg-brand-beige px-6">
         <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-3xl font-semibold mb-8">Premium Locations & Rates</h2>
+            <h2 class="text-3xl font-semibold mb-8 slide-up">Premium Locations & Rates</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige">
+                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 slide-up" style="transition-delay: 100ms;">
                     <h3 class="text-xl font-bold">Shivalik Heights</h3>
                     <p class="text-brand-accent text-lg mt-2 font-medium">₹15,000 / sq ft</p>
                 </div>
-                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige">
+                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 slide-up" style="transition-delay: 200ms;">
                     <h3 class="text-xl font-bold">Gulmohar Estates</h3>
                     <p class="text-brand-accent text-lg mt-2 font-medium">₹10,500 / sq ft</p>
                 </div>
-                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige">
+                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 slide-up" style="transition-delay: 300ms;">
                     <h3 class="text-xl font-bold">Lotus Bay Villas</h3>
                     <p class="text-brand-accent text-lg mt-2 font-medium">₹20,000 / sq ft</p>
                 </div>
@@ -175,59 +233,142 @@
         </div>
     </section>
 
-    <section class="py-12 bg-brand-offwhite overflow-hidden border-b border-brand-beige">
+    <section class="py-16 bg-brand-offwhite overflow-hidden border-b border-brand-beige">
         <div class="carousel-track items-center">
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Shivalik Heights</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Gulmohar</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Lotus Bay</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Aarohi Towers</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kailash Crest</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Ashoka Residences</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kshitij Horizons</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Shivalik Heights</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Gulmohar</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Lotus Bay</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Aarohi Towers</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kailash Crest</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Ashoka Residences</div>
-            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kshitij Horizons</div>
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=400" alt="Shivalik Heights" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Shivalik Heights</div>
+            </div>
+            
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=400" alt="Gulmohar" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Gulmohar</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="images/lotus.jpg" alt="Lotus Bay" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Lotus Bay</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400" alt="Aarohi Towers" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Aarohi Towers</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=400" alt="Kailash Crest" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Kailash Crest</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="images/ashoka.jpg?auto=format&fit=crop&q=80&w=400" alt="Ashoka Residences" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Ashoka Residences</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=400" alt="Kshitij Horizons" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Kshitij Horizons</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=400" alt="Shivalik Heights" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Shivalik Heights</div>
+            </div>
+            
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=400" alt="Gulmohar" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Gulmohar</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="images/lotus.jpg" alt="Lotus Bay" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Lotus Bay</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400" alt="Aarohi Towers" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Aarohi Towers</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=400" alt="Kailash Crest" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Kailash Crest</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1613490908592-fd5e16f02476?auto=format&fit=crop&q=80&w=400" alt="Ashoka Residences" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Ashoka Residences</div>
+            </div>
+
+            <div class="carousel-item group cursor-pointer">
+                <div class="w-full h-48 md:h-56 overflow-hidden mb-4 rounded-sm shadow-md">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=400" alt="Kshitij Horizons" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="text-center text-lg md:text-xl font-light text-gray-500 uppercase tracking-widest group-hover:text-brand-dark transition-colors duration-300">Kshitij Horizons</div>
+            </div>
         </div>
     </section>
 
-    <section class="py-20 px-6 max-w-6xl mx-auto fade-in-section">
+    <section class="py-20 px-6 max-w-6xl mx-auto overflow-hidden">
         <div class="flex flex-col md:flex-row items-center gap-12">
-            <div class="w-full md:w-1/3">
-                <div class="aspect-square bg-gray-200 overflow-hidden relative group">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600" alt="Director" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition duration-500">
+            <div class="w-full md:w-1/3 slide-left">
+                <div class="aspect-square bg-gray-200 overflow-hidden relative group rounded shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600" alt="Director" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-700">
                 </div>
             </div>
-            <div class="w-full md:w-2/3">
+            <div class="w-full md:w-2/3 slide-right">
                 <h2 class="text-4xl font-bold mb-4">Visionary Leadership</h2>
                 <h4 class="text-brand-accent text-xl mb-6">Rajesh Singhania, Managing Director</h4>
-                <blockquote class="text-2xl font-light italic text-gray-600 mb-6 border-l-4 border-brand-accent pl-4">
+                <blockquote class="text-2xl font-light italic text-gray-600 mb-6 border-l-4 border-brand-accent pl-4 transition hover:border-brand-dark duration-300">
                     "We don't just build homes; we craft lifestyles. Our vision is to blend architectural brilliance with sustainable Indian living, creating spaces where future generations will thrive."
                 </blockquote>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="py-20 bg-brand-dark text-brand-offwhite relative fade-in-section">
+    <section id="projects" class="py-20 bg-brand-dark text-brand-offwhite relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-12">
+            <div class="flex justify-between items-end mb-12 slide-up">
                 <h2 class="text-4xl md:text-5xl font-bold">Featured Projects</h2>
                 <div class="flex space-x-4">
-                    <button onclick="prevProject()" class="p-4 border border-brand-beige/30 hover:bg-brand-accent transition"><i class="fas fa-arrow-left"></i></button>
-                    <button onclick="nextProject()" class="p-4 border border-brand-beige/30 hover:bg-brand-accent transition"><i class="fas fa-arrow-right"></i></button>
+                    <button onclick="prevProject()" class="p-4 border border-brand-beige/30 hover:bg-brand-accent hover:border-brand-accent transition rounded"><i class="fas fa-arrow-left"></i></button>
+                    <button onclick="nextProject()" class="p-4 border border-brand-beige/30 hover:bg-brand-accent hover:border-brand-accent transition rounded"><i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <div class="relative overflow-hidden h-[500px]">
-                <div id="project-card" class="absolute inset-0 transition-all duration-500">
+            <div class="relative overflow-hidden h-[500px] scale-in rounded-sm shadow-2xl">
+                <div id="project-card" class="absolute inset-0 transition-opacity duration-700 ease-in-out">
                     <img id="proj-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200" alt="Project" class="w-full h-full object-cover opacity-60">
                     <div class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-brand-dark to-transparent w-full">
-                        <h3 id="proj-title" class="text-4xl font-bold mb-2">Shivalik Heights</h3>
+                        <h3 id="proj-title" class="text-4xl font-bold mb-2 transform transition hover:translate-x-2 duration-300">Shivalik Heights</h3>
                         <p id="proj-desc" class="text-xl text-gray-300 mb-6">Luxury high-rise apartments in the city center.</p>
-                        <button onclick="openModal()" class="bg-brand-offwhite text-brand-dark px-6 py-3 font-semibold hover:bg-brand-accent hover:text-white transition cursor-pointer">Explore Project Details</button>
+                        <button onclick="openModal()" class="bg-brand-offwhite text-brand-dark px-6 py-3 font-semibold hover:bg-brand-accent hover:text-white transition-all transform hover:-translate-y-1 shadow-md cursor-pointer rounded">Explore Project Details</button>
                     </div>
                 </div>
             </div>
@@ -235,8 +376,8 @@
     </section>
 
     <div id="project-modal" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4 md:p-10 opacity-0 transition-opacity duration-300">
-        <div class="bg-brand-offwhite text-brand-dark w-full max-w-6xl max-h-[90vh] overflow-y-auto relative rounded shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-4 right-6 text-3xl font-bold text-gray-500 hover:text-brand-dark">&times;</button>
+        <div class="bg-brand-offwhite text-brand-dark w-full max-w-6xl max-h-[90vh] overflow-y-auto relative rounded shadow-2xl transform scale-95 transition-transform duration-300 ease-out" id="modal-container">
+            <button onclick="closeModal()" class="absolute top-4 right-6 text-3xl font-bold text-gray-500 hover:text-brand-dark transition transform hover:rotate-90">&times;</button>
             
             <div class="p-8 md:p-12">
                 <h2 class="text-4xl font-bold mb-8 border-b pb-4">Project Details</h2>
@@ -245,44 +386,44 @@
                     <div>
                         <h3 class="text-2xl font-semibold mb-4 text-brand-accent">Blueprint & Amenities</h3>
                         <ul class="space-y-3 mb-6">
-                            <li><i class="fas fa-check text-green-600 mr-2"></i> Infinity Pool & Spa</li>
-                            <li><i class="fas fa-check text-green-600 mr-2"></i> 24/7 Concierge Service</li>
-                            <li><i class="fas fa-check text-green-600 mr-2"></i> Smart Home Integration</li>
-                            <li><i class="fas fa-check text-green-600 mr-2"></i> Private Rooftop Garden</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Infinity Pool & Spa</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 24/7 Concierge Service</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Smart Home Integration</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Private Rooftop Garden</li>
                         </ul>
-                        <div class="bg-gray-200 h-48 flex items-center justify-center text-gray-500 italic border border-gray-300">
+                        <div class="bg-gray-200 h-48 flex items-center justify-center text-gray-500 italic border border-gray-300 rounded overflow-hidden">
                             [Floor Plan Image Placeholder]
                         </div>
                     </div>
                     <div>
                         <h3 class="text-2xl font-semibold mb-4 text-brand-accent">Location & Finance</h3>
                         <p class="mb-4">Prime location with access to top-tier schools, shopping, and transit.</p>
-                        <div class="bg-gray-200 h-48 mb-6 flex items-center justify-center text-gray-500 italic border border-gray-300">
+                        <div class="bg-gray-200 h-48 mb-6 flex items-center justify-center text-gray-500 italic border border-gray-300 rounded overflow-hidden">
                             [Google Maps Embed Placeholder]
                         </div>
-                        <p class="font-medium">Finance: Up to 80% LTV available via partner banks. EMI starting at ₹45,000/mo.</p>
+                        <p class="font-medium bg-brand-beige/50 p-4 rounded border-l-4 border-brand-accent">Finance: Up to 80% LTV available via partner banks. EMI starting at ₹45,000/mo.</p>
                     </div>
                 </div>
 
-                <div class="bg-brand-beige p-8 text-center rounded">
+                <div class="bg-brand-beige p-8 text-center rounded shadow-inner">
                     <h3 class="text-2xl font-bold mb-6">Book an Appointment</h3>
                     
                     <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-                        <a href="https://wa.me/919876543210?text=Hey,%20I%20want%20to%20book%20an%20appointment" target="_blank" class="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold flex items-center hover:bg-green-600 transition shadow-lg w-full md:w-auto justify-center">
+                        <a href="https://wa.me/919876543210?text=Hey,%20I%20want%20to%20book%20an%20appointment" target="_blank" class="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold flex items-center hover:bg-green-600 hover:shadow-lg transition transform hover:-translate-y-1 w-full md:w-auto justify-center">
                             <i class="fab fa-whatsapp text-2xl mr-3"></i> Chat on WhatsApp
                         </a>
                         
                         <span class="text-gray-500 font-bold">OR</span>
                         
                         <form class="w-full md:w-auto flex flex-col space-y-3 text-left">
-                            <input type="text" placeholder="Your Name" class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
-                            <input type="tel" placeholder="Phone Number" class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
-                            <select class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                            <input type="text" placeholder="Your Name" class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent rounded" required>
+                            <input type="tel" placeholder="Phone Number" class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent rounded" required>
+                            <select class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white rounded">
                                 <option>Shivalik Heights</option>
                                 <option>Gulmohar Estates</option>
                                 <option>Lotus Bay Villas</option>
                             </select>
-                            <button type="submit" class="bg-brand-dark text-white px-8 py-3 font-bold hover:bg-brand-accent transition">Submit Details</button>
+                            <button type="submit" class="bg-brand-dark text-white px-8 py-3 font-bold hover:bg-brand-accent transition rounded shadow">Submit Details</button>
                         </form>
                     </div>
                 </div>
@@ -291,70 +432,70 @@
         </div>
     </div>
 
-    <section class="py-20 bg-white px-6 fade-in-section">
-        <div class="max-w-4xl mx-auto">
+    <section class="py-20 bg-white px-6">
+        <div class="max-w-4xl mx-auto scale-in">
             <h2 class="text-4xl font-bold text-center mb-10">EMI Calculator</h2>
-            <div class="bg-brand-offwhite p-8 md:p-12 border border-brand-beige shadow-sm">
+            <div class="bg-brand-offwhite p-8 md:p-12 border border-brand-beige shadow-lg rounded-sm hover:border-brand-accent transition duration-300">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <div>
                         <label class="block text-sm font-semibold mb-2">Loan Amount (₹)</label>
-                        <input type="number" id="loanAmt" value="15000000" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                        <input type="number" id="loanAmt" value="15000000" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent bg-white transition">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-2">Interest Rate (%)</label>
-                        <input type="number" id="intRate" value="8.5" step="0.1" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                        <input type="number" id="intRate" value="8.5" step="0.1" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent bg-white transition">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-2">Tenure (Years)</label>
-                        <input type="number" id="loanTenure" value="20" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                        <input type="number" id="loanTenure" value="20" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent bg-white transition">
                     </div>
                 </div>
-                <button onclick="calculateEMI()" class="w-full bg-brand-accent text-white py-4 font-bold text-lg hover:bg-brand-dark transition">Calculate EMI</button>
+                <button onclick="calculateEMI()" class="w-full bg-brand-accent text-white py-4 font-bold text-lg hover:bg-brand-dark transition-colors duration-300 rounded shadow-md">Calculate EMI</button>
                 
-                <div id="emiResult" class="mt-8 text-center text-2xl font-semibold text-brand-dark hidden">
-                    Estimated Monthly Installment: <span id="emiValue" class="text-brand-accent"></span>
+                <div id="emiResult" class="mt-8 text-center text-2xl font-semibold text-brand-dark hidden slide-up">
+                    Estimated Monthly Installment: <span id="emiValue" class="text-brand-accent font-bold"></span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-brand-beige px-6 fade-in-section">
+    <section class="py-20 bg-brand-beige px-6">
         <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-12">Client Experiences</h2>
+            <h2 class="text-4xl font-bold mb-12 slide-up">Client Experiences</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="bg-white p-8 shadow-sm">
+                <div class="bg-white p-8 shadow-sm rounded border-b-4 border-transparent hover:border-brand-accent hover:shadow-xl transition-all duration-300 slide-up" style="transition-delay: 100ms;">
                     <div class="text-brand-accent mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-gray-600 mb-6">"The process of buying our villa at Lotus Bay was seamless. The attention to detail from Whitestone Realtors is unmatched."</p>
-                    <p class="font-bold">- Rahul & Priya S.</p>
+                    <p class="text-gray-600 mb-6 italic">"The process of buying our villa at Lotus Bay was seamless. The attention to detail from Whitestone Realtors is unmatched."</p>
+                    <p class="font-bold text-brand-dark">- Rahul & Priya S.</p>
                 </div>
-                <div class="bg-white p-8 shadow-sm">
+                <div class="bg-white p-8 shadow-sm rounded border-b-4 border-transparent hover:border-brand-accent hover:shadow-xl transition-all duration-300 slide-up" style="transition-delay: 200ms;">
                     <div class="text-brand-accent mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-gray-600 mb-6">"From the virtual tour to the final paperwork, the team was highly professional. Best real estate experience we've had."</p>
-                    <p class="font-bold">- Vikram M.</p>
+                    <p class="text-gray-600 mb-6 italic">"From the virtual tour to the final paperwork, the team was highly professional. Best real estate experience we've had."</p>
+                    <p class="font-bold text-brand-dark">- Vikram M.</p>
                 </div>
-                <div class="bg-white p-8 shadow-sm">
+                <div class="bg-white p-8 shadow-sm rounded border-b-4 border-transparent hover:border-brand-accent hover:shadow-xl transition-all duration-300 slide-up" style="transition-delay: 300ms;">
                     <div class="text-brand-accent mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-                    <p class="text-gray-600 mb-6">"Their properties truly define luxury. The amenities at Shivalik Heights are exactly as promised."</p>
-                    <p class="font-bold">- Ananya D.</p>
+                    <p class="text-gray-600 mb-6 italic">"Their properties truly define luxury. The amenities at Shivalik Heights are exactly as promised."</p>
+                    <p class="font-bold text-brand-dark">- Ananya D.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-brand-offwhite px-6 fade-in-section border-b border-brand-beige">
+    <section class="py-20 bg-brand-offwhite px-6 border-b border-brand-beige">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-10 text-center">Upcoming Launches</h2>
+            <h2 class="text-4xl font-bold mb-10 text-center slide-up">Upcoming Launches</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="relative group overflow-hidden bg-brand-dark text-white h-64">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 flex flex-col justify-end p-6">
+                <div class="relative group overflow-hidden bg-brand-dark text-white h-64 rounded shadow-lg scale-in" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 transition duration-500">
                         <h3 class="text-2xl font-bold">Neelam Towers</h3>
                         <p class="text-brand-accent font-medium mt-1">Est. Delivery: Q4 2026</p>
                     </div>
                 </div>
-                <div class="relative group overflow-hidden bg-brand-dark text-white h-64">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 flex flex-col justify-end p-6">
+                <div class="relative group overflow-hidden bg-brand-dark text-white h-64 rounded shadow-lg scale-in" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 transition duration-500">
                         <h3 class="text-2xl font-bold">Prakriti Eco-Homes</h3>
                         <p class="text-brand-accent font-medium mt-1">Est. Delivery: Q2 2027</p>
                     </div>
@@ -366,33 +507,35 @@
     <footer class="bg-brand-dark text-brand-offwhite py-12 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
             
-            <div class="text-center md:text-left">
+            <div class="text-center md:text-left slide-left">
                 <div class="flex flex-col items-center md:items-start mb-6">
                     <img src="images/logo.png" alt="Whitestone Realtors Logo" class="h-16 mb-3 object-contain mix-blend-lighten">
                     <h3 class="text-2xl font-bold tracking-widest uppercase">Whitestone<span class="text-brand-accent">.</span></h3>
                     <p class="text-brand-accent font-medium italic mt-1">Building Timeless Legacies</p>
                 </div>
 
-                <p class="text-gray-400 mb-2"><i class="fas fa-map-marker-alt w-5"></i> 124 Premium Avenue, Mumbai, Maharashtra</p>
-                <p class="text-gray-400 mb-2"><i class="fas fa-phone w-5"></i> +91 98765 43210</p>
-                <p class="text-gray-400 mb-6"><i class="fas fa-envelope w-5"></i> contact@whitestonerealtors.in</p>
-
-             
+                <p class="text-gray-400 mb-2 hover:text-white transition cursor-pointer"><i class="fas fa-map-marker-alt w-5 text-brand-accent"></i> 124 Premium Avenue, Mumbai, Maharashtra</p>
+                <p class="text-gray-400 mb-2 hover:text-white transition cursor-pointer"><i class="fas fa-phone w-5 text-brand-accent"></i> +91 98765 43210</p>
+                <p class="text-gray-400 mb-6 hover:text-white transition cursor-pointer"><i class="fas fa-envelope w-5 text-brand-accent"></i> contact@whitestonerealtors.in</p>
             </div>
 
-            <div class="flex flex-col items-center w-full md:w-auto">
+            <div class="flex flex-col items-center w-full md:w-auto slide-up">
                 <p class="font-semibold mb-4 uppercase tracking-widest text-sm text-gray-400">Connect With Us</p>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-[#1877F2] text-4xl hover:scale-110 transition transform"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-[#E1306C] text-4xl hover:scale-110 transition transform"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white text-4xl hover:scale-110 transition transform"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="text-[#1877F2] text-4xl hover:-translate-y-2 hover:drop-shadow-lg transition-all transform duration-300"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-[#E1306C] text-4xl hover:-translate-y-2 hover:drop-shadow-lg transition-all transform duration-300"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-white text-4xl hover:-translate-y-2 hover:drop-shadow-lg transition-all transform duration-300"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
 
-
-            <div class="flex flex-col items-center md:items-end space-y-2 text-sm text-gray-400 w-full md:w-auto">
-                <p class="text-gray-400 mb-1"><i class="fas fa-clock w-5 text-brand-accent"></i> Monday - Saturday: 10:00 AM - 6:00 PM</p>
-                <p class="text-gray-400"><i class="fas fa-calendar-times w-5 text-brand-accent"></i> Sunday: Closed (Holiday)</p>
+            <div class="flex flex-col items-center md:items-end space-y-2 text-sm text-gray-400 w-full md:w-auto slide-right">
+                <div class="mb-4 text-center md:text-right">
+                    <h4 class="text-brand-offwhite font-bold mb-2 uppercase tracking-widest text-sm">Office Timing</h4>
+                    <p class="text-gray-400 mb-1"><i class="fas fa-clock w-5 text-brand-accent"></i> Monday - Saturday: 10:00 AM - 6:00 PM</p>
+                    <p class="text-gray-400"><i class="fas fa-calendar-times w-5 text-brand-accent"></i> Sunday: Closed (Holiday)</p>
+                </div>
+                
+                <a href="#" onclick="alert('Coming Soon!!'); return false;" class="hover:text-brand-accent transition">About Us</a>
                 <a href="#" onclick="alert('Coming Soon!!'); return false;" class="hover:text-brand-accent transition">Privacy Policy</a>
                 <a href="#" onclick="alert('Coming Soon!!'); return false;" class="hover:text-brand-accent transition">Terms of Service</a>
                 <p class="mt-4 pt-4 border-t border-gray-700 w-full text-center md:text-right">&copy; 2026 Whitestone Realtors India.</p>
@@ -401,50 +544,63 @@
     </footer>
 
     <script>
-        // Hero Custom Cursor Effect
-        const cursor = document.getElementById('custom-cursor');
-        const heroSection = document.getElementById('home');
+        // Mobile Hamburger Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        heroSection.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
         });
 
-        heroSection.addEventListener('mouseenter', () => {
-            cursor.style.opacity = '1';
-        });
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
 
-        heroSection.addEventListener('mouseleave', () => {
-            cursor.style.opacity = '0';
-        });
-
-        heroSection.addEventListener('mousedown', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-        });
-
-        heroSection.addEventListener('mouseup', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        // Close menu when a link is clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
         });
 
         // Appointment Overlay Logic
         const apptPage = document.getElementById('appt-page');
+        const apptFormContainer = document.getElementById('appt-form-container');
+        
         function openApptPage() {
             apptPage.classList.remove('hidden');
             apptPage.classList.add('flex');
-            setTimeout(() => { apptPage.style.opacity = '1'; }, 10);
-            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            setTimeout(() => { 
+                apptPage.style.opacity = '1'; 
+                apptFormContainer.classList.remove('scale-95');
+                apptFormContainer.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeApptPage() {
             apptPage.style.opacity = '0';
+            apptFormContainer.classList.remove('scale-100');
+            apptFormContainer.classList.add('scale-95');
             setTimeout(() => { 
                 apptPage.classList.add('hidden'); 
                 apptPage.classList.remove('flex');
             }, 300);
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto'; 
         }
 
-        // 2D Scroll Fade-in logic
+        // Advanced Scroll Animations via IntersectionObserver
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -460,7 +616,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in-section').forEach(section => {
+        document.querySelectorAll('.fade-in-section, .slide-up, .slide-left, .slide-right, .scale-in').forEach(section => {
             observer.observe(section);
         });
 
@@ -491,14 +647,15 @@
             const descEl = document.getElementById('proj-desc');
             const card = document.getElementById('project-card');
 
-            // Quick fade effect
             card.style.opacity = 0;
+            card.style.transform = "scale(0.98)";
             
             setTimeout(() => {
                 imgEl.src = projects[currentProjIndex].img;
                 titleEl.textContent = projects[currentProjIndex].title;
                 descEl.textContent = projects[currentProjIndex].desc;
                 card.style.opacity = 1;
+                card.style.transform = "scale(1)";
             }, 300);
         }
 
@@ -514,19 +671,26 @@
 
         // Modal Logic
         const modal = document.getElementById('project-modal');
+        const modalContainer = document.getElementById('modal-container');
+        
         function openModal() {
             modal.classList.remove('hidden');
-            setTimeout(() => { modal.style.opacity = '1'; }, 10);
+            setTimeout(() => { 
+                modal.style.opacity = '1'; 
+                modalContainer.classList.remove('scale-95');
+                modalContainer.classList.add('scale-100');
+            }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             modal.style.opacity = '0';
+            modalContainer.classList.remove('scale-100');
+            modalContainer.classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); }, 300);
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal on click outside
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
@@ -542,9 +706,15 @@
             if(p && r && n) {
                 const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
                 
-                document.getElementById('emiResult').classList.remove('hidden');
-                // Format to Indian Rupees (INR)
-                document.getElementById('emiValue').textContent = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(emi);
+                const emiResultDiv = document.getElementById('emiResult');
+                emiResultDiv.classList.remove('hidden');
+                
+                // Add a small bounce effect when calculating
+                emiResultDiv.classList.remove('is-visible');
+                setTimeout(() => {
+                    emiResultDiv.classList.add('is-visible');
+                    document.getElementById('emiValue').textContent = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(emi);
+                }, 50);
             }
         }
     </script>
