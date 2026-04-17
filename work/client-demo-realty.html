@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitestone Realtors | Premium Living</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-offwhite': '#FAFAFA',
+                        'brand-beige': '#E8E4D9',
+                        'brand-dark': '#1A1A1A',
+                        'brand-accent': '#C5A880'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #FAFAFA; color: #1A1A1A; }
+        
+        /* Flowing Menu Effect */
+        .nav-link {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #C5A880;
+            transform-origin: bottom right;
+            transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Hero Cursor Effect */
+        #custom-cursor {
+            pointer-events: none;
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        /* Infinite Carousel */
+        .carousel-track {
+            display: flex;
+            width: calc(250px * 14); /* Adjust based on item count */
+            animation: scroll 20s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 7)); }
+        }
+        .carousel-track:hover { animation-play-state: paused; }
+
+        /* 2D Scroll Fade-in */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Hide Scrollbar for toggle section */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-brand-accent selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-brand-offwhite/90 backdrop-blur-md border-b border-brand-beige py-2 px-6 md:px-12 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="block">
+                <img src="images/logo.png" alt="Whitestone Realtors Logo" class="h-14 md:h-16 w-auto object-contain mix-blend-multiply">
+            </a>
+            <div class="hidden md:flex space-x-8 items-center font-medium">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <button onclick="openApptPage()" class="bg-brand-dark text-brand-offwhite px-5 py-2 rounded hover:bg-brand-accent transition-colors">Book an Appointment</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="appt-page" class="fixed inset-0 z-[100] bg-brand-offwhite hidden flex-col items-center justify-center transition-opacity duration-300 opacity-0 overflow-y-auto pt-20 pb-10 px-4">
+        <button onclick="closeApptPage()" class="absolute top-6 right-6 md:right-12 text-5xl font-bold text-gray-400 hover:text-brand-dark transition">&times;</button>
+        
+        <div class="max-w-lg w-full bg-white p-10 shadow-2xl border border-brand-beige rounded-sm">
+            <div class="text-center mb-8">
+                <img src="images/logo.png" alt="Whitestone Realtors" class="h-16 mx-auto mb-4 object-contain">
+                <h2 class="text-3xl font-bold text-brand-dark">Schedule a Visit</h2>
+                <p class="text-gray-500 mt-2">Fill out the details below and our team will get in touch.</p>
+            </div>
+            
+            <form class="flex flex-col space-y-5 text-left">
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-brand-dark">Full Name</label>
+                    <input type="text" placeholder="e.g. Rahul Sharma" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-brand-dark">Phone Number</label>
+                    <input type="tel" placeholder="+91 98765 43210" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1 text-brand-dark">Project Interested In</label>
+                    <select class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white" required>
+                        <option value="" disabled selected>Select a Project</option>
+                        <option>Shivalik Heights</option>
+                        <option>Gulmohar Estates</option>
+                        <option>Lotus Bay Villas</option>
+                        <option>Aarohi Towers</option>
+                        <option>Kailash Crest</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-brand-dark text-white px-8 py-4 font-bold hover:bg-brand-accent transition mt-4 shadow-lg">Confirm Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden cursor-none">
+        <div id="custom-cursor" class="fixed w-8 h-8 border-2 border-white rounded-full z-40 transform -translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="absolute inset-0 z-0">
+            <img src="images/hero.jpg" alt="Premium Villa" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30"></div>
+        </div>
+
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight drop-shadow-lg">Elevate Your Living</h1>
+            <p class="text-xl md:text-2xl font-light drop-shadow-md">Discover premium spaces curated for excellence.</p>
+        </div>
+    </section>
+
+    <section class="py-16 bg-brand-beige px-6 fade-in-section">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-semibold mb-8">Premium Locations & Rates</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige">
+                    <h3 class="text-xl font-bold">Shivalik Heights</h3>
+                    <p class="text-brand-accent text-lg mt-2 font-medium">₹15,000 / sq ft</p>
+                </div>
+                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige">
+                    <h3 class="text-xl font-bold">Gulmohar Estates</h3>
+                    <p class="text-brand-accent text-lg mt-2 font-medium">₹10,500 / sq ft</p>
+                </div>
+                <div class="bg-brand-offwhite p-6 shadow-sm border border-brand-beige">
+                    <h3 class="text-xl font-bold">Lotus Bay Villas</h3>
+                    <p class="text-brand-accent text-lg mt-2 font-medium">₹20,000 / sq ft</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-brand-offwhite overflow-hidden border-b border-brand-beige">
+        <div class="carousel-track items-center">
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Shivalik Heights</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Gulmohar</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Lotus Bay</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Aarohi Towers</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kailash Crest</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Ashoka Residences</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kshitij Horizons</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Shivalik Heights</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Gulmohar</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Lotus Bay</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Aarohi Towers</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kailash Crest</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Ashoka Residences</div>
+            <div class="w-[250px] flex-shrink-0 px-4 text-center text-xl font-light text-gray-500 uppercase tracking-widest">Kshitij Horizons</div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 max-w-6xl mx-auto fade-in-section">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/3">
+                <div class="aspect-square bg-gray-200 overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600" alt="Director" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition duration-500">
+                </div>
+            </div>
+            <div class="w-full md:w-2/3">
+                <h2 class="text-4xl font-bold mb-4">Visionary Leadership</h2>
+                <h4 class="text-brand-accent text-xl mb-6">Rajesh Singhania, Managing Director</h4>
+                <blockquote class="text-2xl font-light italic text-gray-600 mb-6 border-l-4 border-brand-accent pl-4">
+                    "We don't just build homes; we craft lifestyles. Our vision is to blend architectural brilliance with sustainable Indian living, creating spaces where future generations will thrive."
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 bg-brand-dark text-brand-offwhite relative fade-in-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold">Featured Projects</h2>
+                <div class="flex space-x-4">
+                    <button onclick="prevProject()" class="p-4 border border-brand-beige/30 hover:bg-brand-accent transition"><i class="fas fa-arrow-left"></i></button>
+                    <button onclick="nextProject()" class="p-4 border border-brand-beige/30 hover:bg-brand-accent transition"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden h-[500px]">
+                <div id="project-card" class="absolute inset-0 transition-all duration-500">
+                    <img id="proj-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200" alt="Project" class="w-full h-full object-cover opacity-60">
+                    <div class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-brand-dark to-transparent w-full">
+                        <h3 id="proj-title" class="text-4xl font-bold mb-2">Shivalik Heights</h3>
+                        <p id="proj-desc" class="text-xl text-gray-300 mb-6">Luxury high-rise apartments in the city center.</p>
+                        <button onclick="openModal()" class="bg-brand-offwhite text-brand-dark px-6 py-3 font-semibold hover:bg-brand-accent hover:text-white transition cursor-pointer">Explore Project Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="project-modal" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4 md:p-10 opacity-0 transition-opacity duration-300">
+        <div class="bg-brand-offwhite text-brand-dark w-full max-w-6xl max-h-[90vh] overflow-y-auto relative rounded shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-6 text-3xl font-bold text-gray-500 hover:text-brand-dark">&times;</button>
+            
+            <div class="p-8 md:p-12">
+                <h2 class="text-4xl font-bold mb-8 border-b pb-4">Project Details</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 text-brand-accent">Blueprint & Amenities</h3>
+                        <ul class="space-y-3 mb-6">
+                            <li><i class="fas fa-check text-green-600 mr-2"></i> Infinity Pool & Spa</li>
+                            <li><i class="fas fa-check text-green-600 mr-2"></i> 24/7 Concierge Service</li>
+                            <li><i class="fas fa-check text-green-600 mr-2"></i> Smart Home Integration</li>
+                            <li><i class="fas fa-check text-green-600 mr-2"></i> Private Rooftop Garden</li>
+                        </ul>
+                        <div class="bg-gray-200 h-48 flex items-center justify-center text-gray-500 italic border border-gray-300">
+                            [Floor Plan Image Placeholder]
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 text-brand-accent">Location & Finance</h3>
+                        <p class="mb-4">Prime location with access to top-tier schools, shopping, and transit.</p>
+                        <div class="bg-gray-200 h-48 mb-6 flex items-center justify-center text-gray-500 italic border border-gray-300">
+                            [Google Maps Embed Placeholder]
+                        </div>
+                        <p class="font-medium">Finance: Up to 80% LTV available via partner banks. EMI starting at ₹45,000/mo.</p>
+                    </div>
+                </div>
+
+                <div class="bg-brand-beige p-8 text-center rounded">
+                    <h3 class="text-2xl font-bold mb-6">Book an Appointment</h3>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                        <a href="https://wa.me/919876543210?text=Hey,%20I%20want%20to%20book%20an%20appointment" target="_blank" class="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold flex items-center hover:bg-green-600 transition shadow-lg w-full md:w-auto justify-center">
+                            <i class="fab fa-whatsapp text-2xl mr-3"></i> Chat on WhatsApp
+                        </a>
+                        
+                        <span class="text-gray-500 font-bold">OR</span>
+                        
+                        <form class="w-full md:w-auto flex flex-col space-y-3 text-left">
+                            <input type="text" placeholder="Your Name" class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
+                            <input type="tel" placeholder="Phone Number" class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent" required>
+                            <select class="p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                                <option>Shivalik Heights</option>
+                                <option>Gulmohar Estates</option>
+                                <option>Lotus Bay Villas</option>
+                            </select>
+                            <button type="submit" class="bg-brand-dark text-white px-8 py-3 font-bold hover:bg-brand-accent transition">Submit Details</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 bg-white px-6 fade-in-section">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-10">EMI Calculator</h2>
+            <div class="bg-brand-offwhite p-8 md:p-12 border border-brand-beige shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Loan Amount (₹)</label>
+                        <input type="number" id="loanAmt" value="15000000" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Interest Rate (%)</label>
+                        <input type="number" id="intRate" value="8.5" step="0.1" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Tenure (Years)</label>
+                        <input type="number" id="loanTenure" value="20" class="w-full p-3 border border-gray-300 focus:outline-none focus:border-brand-accent bg-white">
+                    </div>
+                </div>
+                <button onclick="calculateEMI()" class="w-full bg-brand-accent text-white py-4 font-bold text-lg hover:bg-brand-dark transition">Calculate EMI</button>
+                
+                <div id="emiResult" class="mt-8 text-center text-2xl font-semibold text-brand-dark hidden">
+                    Estimated Monthly Installment: <span id="emiValue" class="text-brand-accent"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-brand-beige px-6 fade-in-section">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12">Client Experiences</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <div class="bg-white p-8 shadow-sm">
+                    <div class="text-brand-accent mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-gray-600 mb-6">"The process of buying our villa at Lotus Bay was seamless. The attention to detail from Whitestone Realtors is unmatched."</p>
+                    <p class="font-bold">- Rahul & Priya S.</p>
+                </div>
+                <div class="bg-white p-8 shadow-sm">
+                    <div class="text-brand-accent mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-gray-600 mb-6">"From the virtual tour to the final paperwork, the team was highly professional. Best real estate experience we've had."</p>
+                    <p class="font-bold">- Vikram M.</p>
+                </div>
+                <div class="bg-white p-8 shadow-sm">
+                    <div class="text-brand-accent mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <p class="text-gray-600 mb-6">"Their properties truly define luxury. The amenities at Shivalik Heights are exactly as promised."</p>
+                    <p class="font-bold">- Ananya D.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-brand-offwhite px-6 fade-in-section border-b border-brand-beige">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold mb-10 text-center">Upcoming Launches</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="relative group overflow-hidden bg-brand-dark text-white h-64">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6">
+                        <h3 class="text-2xl font-bold">Neelam Towers</h3>
+                        <p class="text-brand-accent font-medium mt-1">Est. Delivery: Q4 2026</p>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden bg-brand-dark text-white h-64">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6">
+                        <h3 class="text-2xl font-bold">Prakriti Eco-Homes</h3>
+                        <p class="text-brand-accent font-medium mt-1">Est. Delivery: Q2 2027</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark text-brand-offwhite py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+            
+            <div class="text-center md:text-left">
+                <div class="flex flex-col items-center md:items-start mb-6">
+                    <img src="images/logo.png" alt="Whitestone Realtors Logo" class="h-16 mb-3 object-contain mix-blend-lighten">
+                    <h3 class="text-2xl font-bold tracking-widest uppercase">Whitestone<span class="text-brand-accent">.</span></h3>
+                    <p class="text-brand-accent font-medium italic mt-1">Building Timeless Legacies</p>
+                </div>
+
+                <p class="text-gray-400 mb-2"><i class="fas fa-map-marker-alt w-5"></i> 124 Premium Avenue, Mumbai, Maharashtra</p>
+                <p class="text-gray-400 mb-2"><i class="fas fa-phone w-5"></i> +91 98765 43210</p>
+                <p class="text-gray-400 mb-6"><i class="fas fa-envelope w-5"></i> contact@whitestonerealtors.in</p>
+
+             
+            </div>
+
+            <div class="flex flex-col items-center w-full md:w-auto">
+                <p class="font-semibold mb-4 uppercase tracking-widest text-sm text-gray-400">Connect With Us</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-[#1877F2] text-4xl hover:scale-110 transition transform"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-[#E1306C] text-4xl hover:scale-110 transition transform"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white text-4xl hover:scale-110 transition transform"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+
+
+            <div class="flex flex-col items-center md:items-end space-y-2 text-sm text-gray-400 w-full md:w-auto">
+                <p class="text-gray-400 mb-1"><i class="fas fa-clock w-5 text-brand-accent"></i> Monday - Saturday: 10:00 AM - 6:00 PM</p>
+                <p class="text-gray-400"><i class="fas fa-calendar-times w-5 text-brand-accent"></i> Sunday: Closed (Holiday)</p>
+                <a href="#" onclick="alert('Coming Soon!!'); return false;" class="hover:text-brand-accent transition">Privacy Policy</a>
+                <a href="#" onclick="alert('Coming Soon!!'); return false;" class="hover:text-brand-accent transition">Terms of Service</a>
+                <p class="mt-4 pt-4 border-t border-gray-700 w-full text-center md:text-right">&copy; 2026 Whitestone Realtors India.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hero Custom Cursor Effect
+        const cursor = document.getElementById('custom-cursor');
+        const heroSection = document.getElementById('home');
+
+        heroSection.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        heroSection.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+
+        heroSection.addEventListener('mousedown', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        });
+
+        heroSection.addEventListener('mouseup', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // Appointment Overlay Logic
+        const apptPage = document.getElementById('appt-page');
+        function openApptPage() {
+            apptPage.classList.remove('hidden');
+            apptPage.classList.add('flex');
+            setTimeout(() => { apptPage.style.opacity = '1'; }, 10);
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        function closeApptPage() {
+            apptPage.style.opacity = '0';
+            setTimeout(() => { 
+                apptPage.classList.add('hidden'); 
+                apptPage.classList.remove('flex');
+            }, 300);
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // 2D Scroll Fade-in logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Projects Data & Toggle Logic
+        const projects = [
+            {
+                title: "Shivalik Heights",
+                desc: "Luxury high-rise apartments in the city center.",
+                img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200"
+            },
+            {
+                title: "Gulmohar Estates",
+                desc: "Spacious suburban villas surrounded by nature trails.",
+                img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"
+            },
+            {
+                title: "Lotus Bay Villas",
+                desc: "Exclusive waterfront properties with serene views.",
+                img: "images/lotus.jpg?auto=format&fit=crop&q=80&w=1200"
+            }
+        ];
+
+        let currentProjIndex = 0;
+        
+        function updateProjectDisplay() {
+            const imgEl = document.getElementById('proj-img');
+            const titleEl = document.getElementById('proj-title');
+            const descEl = document.getElementById('proj-desc');
+            const card = document.getElementById('project-card');
+
+            // Quick fade effect
+            card.style.opacity = 0;
+            
+            setTimeout(() => {
+                imgEl.src = projects[currentProjIndex].img;
+                titleEl.textContent = projects[currentProjIndex].title;
+                descEl.textContent = projects[currentProjIndex].desc;
+                card.style.opacity = 1;
+            }, 300);
+        }
+
+        function nextProject() {
+            currentProjIndex = (currentProjIndex + 1) % projects.length;
+            updateProjectDisplay();
+        }
+
+        function prevProject() {
+            currentProjIndex = (currentProjIndex - 1 + projects.length) % projects.length;
+            updateProjectDisplay();
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('project-modal');
+        function openModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.style.opacity = '1'; }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.opacity = '0';
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on click outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // EMI Calculator Logic
+        function calculateEMI() {
+            const p = parseFloat(document.getElementById('loanAmt').value);
+            const r = parseFloat(document.getElementById('intRate').value) / 12 / 100;
+            const n = parseFloat(document.getElementById('loanTenure').value) * 12;
+
+            if(p && r && n) {
+                const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                
+                document.getElementById('emiResult').classList.remove('hidden');
+                // Format to Indian Rupees (INR)
+                document.getElementById('emiValue').textContent = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(emi);
+            }
+        }
+    </script>
+</body>
+</html>
